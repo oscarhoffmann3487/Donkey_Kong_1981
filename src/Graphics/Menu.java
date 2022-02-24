@@ -43,8 +43,9 @@ public class Menu extends GameState {
 		g.setFill(fontColor);
 		g.setFont(new Font(30)); // Big letters
 	    g.fillText(informationText, 600/2, 400);
+	
 	    
-		Image cover = new Image(new FileInputStream("C:\\Users\\Julia\\Desktop\\donkeykong.png")); 		
+		Image cover = new Image(new FileInputStream("Images\\donkeykong.png")); 		
 		g.drawImage(cover, 0, 0);		
 	}
 	
