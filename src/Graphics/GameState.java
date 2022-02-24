@@ -23,8 +23,7 @@ public abstract class GameState {
 	public abstract void keyPressed(KeyEvent key);
 
 	public void drawBg(GraphicsContext g, Color color) throws FileNotFoundException { 
-		// Here we can draw a background
-						// if we so desire.
+
 		g.setFill(color);
 		g.fillRect(0, 0, 600, 600);
 	}
