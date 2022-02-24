@@ -45,14 +45,14 @@ public class Menu extends GameState {
 	    g.fillText(informationText, 600/2, 400);
 	
 	    
-		Image cover = new Image(new FileInputStream("Images\\donkeykong.png")); 		
+		Image cover = new Image(new FileInputStream("donkeykong.png")); 		
 		g.drawImage(cover, 0, 0);		
 	}
 	
 
 	@Override
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker på " + key.getText() + " i Menu");
+		System.out.println("Trycker pï¿½ " + key.getText() + " i Menu");
 
 		if (key.getCode() == KeyCode.ENTER) {
 			model.switchState(level1);
