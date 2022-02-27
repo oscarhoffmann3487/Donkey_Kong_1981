@@ -9,7 +9,8 @@ public class GameFrame extends HBox {
 	private GamePanel g;
 
 	public GameFrame(Model model, int width, int height) {
-		// Create a new GamePanel and add's it to the frame
+		// Create a new GamePanel and add's it to the frame   
+		
 		g = new GamePanel(model, width, height);
 		this.getChildren().add(g);
 	}
