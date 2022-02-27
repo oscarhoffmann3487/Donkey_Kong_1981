@@ -45,8 +45,6 @@ public class Mario extends Level1 {
 			System.out.println("Unable to find image-files!");
 		}
 
-		
-		//test
 	}
 
 	public void drawMario(GraphicsContext g) {
