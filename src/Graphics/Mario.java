@@ -18,26 +18,32 @@ import static constants.Constants.SCREEN_WIDTH;
 
 public class Mario {
 
-	private double x = 100.0;
-	private double y = 50.0;
+	private double x = 0.0;
+	private double y = 625.0;
 	private double speed = 8.0;
 	private double climbingSpeed = 5.0;
 	private double gravity = 2.0;
 	private double jumpHeight = 20;
-	private double scale = 30;
+	private double scale = 15;
+	// private boolean isOnLadder = false;
 
 	private Image marioStandLeft;
 	private Image marioStandRight;
-	private Rectangle2D marioBoundingBox;
+	private Rectangle2D upperBoundingBox;
+	private Rectangle2D lowerBoundingBox;
 	private Rectangle2D donkeyKong;
 
 	private ArrayList<Rectangle2D> floors;
+	private ArrayList<Rectangle2D> ladders;
 
-	public Mario(Model model, ArrayList<Rectangle2D> floorBoundaries, Rectangle2D donkeyKong) {
+	public Mario(Model model, ArrayList<Rectangle2D> floorBoundaries, Rectangle2D donkeyKong,
+			ArrayList<Rectangle2D> ladderBoundaries) {
 		this.floors = floorBoundaries;
+		this.ladders = ladderBoundaries;
 		this.donkeyKong = donkeyKong;
-		
-		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
+
+		upperBoundingBox = new Rectangle2D(x, y, scale, scale);
+		upperBoundingBox = new Rectangle2D(x, y, scale, scale);
 		try {
 			marioStandLeft = new Image(new FileInputStream("marioStand.png"));
 			marioStandRight = new Image(new FileInputStream("marioStand.png"));
@@ -52,47 +58,43 @@ public class Mario {
 	}
 
 	public void update() {
-		gravitation();
-		floorCollision();
+		gravity(ladderCollision(), onFloor());
 		marioDonkeyKongCollision();
-		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
-		
+		upperBoundingBox = new Rectangle2D(x, y, scaleX, scale);
+
 	}
+
 	public void marioDonkeyKongCollision() {
-		if(marioBoundingBox.intersects(donkeyKong)) {
+		if (upperBoundingBox.intersects(donkeyKong)) {
 			x += speed;
-			
+
 		}
 	}
 
-	public void gravitation() {
-		y += gravity;
-	}
+	public void gravity(boolean isOnLadder, boolean isOnFloor) {
 
-	public void floorCollision() {
-		for (Rectangle2D floor : floors) {
-			if (marioBoundingBox.intersects(floor)) {
-				y -= gravity;
-			}
+		if (isOnLadder || isOnFloor) {
+		}else {
+		y += gravity;
 		}
 	}
 
 	public boolean onFloor() {
 		for (Rectangle2D floor : floors) {
-			if (marioBoundingBox.intersects(floor)) {
+			if (upperBoundingBox.intersects(floor)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
-	public boolean onLadder() {
+
+	public boolean ladderCollision() {
+		for (Rectangle2D ladder : ladders) {
+			if (upperBoundingBox.intersects(ladder)) {
+				return true;
+			}
+		}
 		return false;
-		/*
-		 * for (Rectangle2D floor : floors) { if (marioBoundingBox.intersects(floor)) {
-		 * return true; } } return false;
-		 */
 	}
 
 	public void keyPressed(KeyEvent key) {
@@ -118,20 +120,20 @@ public class Mario {
 
 		} else if (key.getCode() == KeyCode.W) {
 
-			if (onLadder()) {
+			if (ladderCollision()) {
 				y -= climbingSpeed;
 			}
 
 		} else if (key.getCode() == KeyCode.S) {
 
-			if (onLadder()) {
+		if(ladderCollision()) {
 				y += climbingSpeed;
 			}
 		}
 	}
 
 	public void checkPosition() {
-		if (x >= SCREEN_WIDTH - scale) {
+		if (x >= SCREEN_WIDTH - scaleX) {
 			x -= speed;
 		} else if (x <= 0.0) {
 			x += speed;

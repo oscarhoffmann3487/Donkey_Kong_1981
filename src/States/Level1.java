@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 import Graphics.DonkeyKong;
 import Graphics.Floor;
+import Graphics.Ladder;
 import Graphics.Mario;
 import Logic.*;
 import javafx.geometry.Rectangle2D;
@@ -26,15 +27,17 @@ public class Level1 extends GameState {
 	private Mario mario;
 	private Floor floors;
 	private DonkeyKong donkeyKong;
+	private Ladder ladders;
 
 
 	public Level1(Model model) {
 		super(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
+		ladders = new Ladder(model);
 		floors = new Floor(model);
 		donkeyKong = new DonkeyKong(model);
-		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox());
+		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(), ladders.getladderBoundaries());
 		
 	}
 
@@ -44,6 +47,9 @@ public class Level1 extends GameState {
 		drawBg(g, bgColor);
 		g.setFill(fontColor);
 
+		//Stegar
+		ladders.drawLadder(g);
+		
 		// Golven
 		floors.drawFloor(g);
 
@@ -52,6 +58,8 @@ public class Level1 extends GameState {
 		
 		//DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
+		
+		
 
 	}
 
