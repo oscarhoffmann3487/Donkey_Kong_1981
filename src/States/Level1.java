@@ -5,6 +5,7 @@ import static constants.Constants.SCREEN_WIDTH;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import Graphics.DonkeyKong;
 import Graphics.Floor;
 import Graphics.Mario;
 import Logic.*;
@@ -24,6 +25,7 @@ public class Level1 extends GameState {
 	private Color fontColor;
 	private Mario mario;
 	private Floor floors;
+	private DonkeyKong donkeyKong;
 
 
 	public Level1(Model model) {
@@ -31,7 +33,9 @@ public class Level1 extends GameState {
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
 		floors = new Floor(model);
-		mario = new Mario(model, floors.getFloor1());
+		donkeyKong = new DonkeyKong(model);
+		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox());
+		
 	}
 
 	@Override
@@ -45,6 +49,9 @@ public class Level1 extends GameState {
 
 		// Mario
 		mario.drawMario(g);
+		
+		//DonkeyKong
+		donkeyKong.drawDonkeyKong(g);
 
 	}
 

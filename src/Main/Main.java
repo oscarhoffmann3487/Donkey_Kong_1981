@@ -35,6 +35,7 @@ public class Main extends Application {
 
 		final double nanoPerUpdate = 1000000000.0 / targetFps;
 
+		
 		gameStage.setScene(gameScene);
 
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
