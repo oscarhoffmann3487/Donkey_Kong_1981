@@ -97,7 +97,6 @@ public class Menu extends GameState {
 		}else if (key.getCode() == KeyCode.A) {
 			//audio();	
 		}else if(key.getCode() == KeyCode.H) {
-		
 			model.switchState(help);
 		}
 
