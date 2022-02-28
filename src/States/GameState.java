@@ -1,9 +1,7 @@
 package States;
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
-
 import java.io.FileNotFoundException;
-
 import Logic.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;

@@ -6,11 +6,11 @@ import Logic.Model;
 import States.Level1;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-public class Floor extends Level1{
+public class Floor{
 
 	private Image floor;
 	public Floor(Model model) {
-		super(model);
+		
 
 		try {
 			floor = new Image(new FileInputStream("floor.png"));

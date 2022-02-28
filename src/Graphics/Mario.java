@@ -9,35 +9,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import static constants.Constants.SCREEN_HEIGHT;
+import static constants.Constants.SCREEN_WIDTH;
 
-public class Mario extends Level1 {
-
-	public class Point {
-		double x;
-		double y;
-
-		public Point(double x, double y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
-	private Point position;
-	public Point getPosition() {
-		return position;
-	}
-
-	public void setPosition(Point position) {
-		this.position = position;
-	}
-
+public class Mario {
+	private double x;
+	private double y;
 	private Image marioStandLeft;
 	private Image marioStandRight;
 
 	public Mario(Model model) {
-		super(model);
-		position = new Point(0, 635);
-		
+		this.x = 0;
+		this.y = 625;
 		try {
 			marioStandLeft = new Image(new FileInputStream("marioStand.png"));
 			marioStandRight = new Image(new FileInputStream("marioStand.png"));
@@ -48,26 +31,39 @@ public class Mario extends Level1 {
 	}
 
 	public void drawMario(GraphicsContext g) {
-		
-		g.drawImage(marioStandRight, position.x, position.y, 20, 20);
+
+		g.drawImage(marioStandRight, x, y, 30, 30);
 	}
-	
+
 	public void update() {
-		
 
 		// Here one would probably instead move the player and any
 		// enemies / moving obstacles currently active.
 		// tester.update();
 	}
-	
+
 	public void keyPressed(KeyEvent key) {
 		System.out.println("Trycker på " + key.getCode() + " i PlayState");
+		checkPosition();
+		if (key.getCode() == KeyCode.D) {
+			x += 5;
+		} else if (key.getCode() == KeyCode.A) {
+			x -= 5;
+		} else if (key.getCode() == KeyCode.SPACE) {
+			y -= 10;
 
-		if (key.getCode() == KeyCode.ESCAPE) {
-	} else if (key.getCode() == KeyCode.D) {
-		position.x += 2;
-	} else if (key.getCode() == KeyCode.A) {
-		position.x -= 2;
+		}
+		// } else if (key.getCode() == KeyCode.W) {
+		// y += 5;
+		// } else if (key.getCode() == KeyCode.S) {
+		// y -= 5;
 	}
+
+	public void checkPosition() {
+		if (x >= SCREEN_WIDTH - 30) {
+			x -= 5;
+		} else if (x <= 0) {
+			x += 5;
+		}
 	}
 }

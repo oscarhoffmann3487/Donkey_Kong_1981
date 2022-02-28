@@ -22,12 +22,14 @@ public class Level1 extends GameState {
 	private Color fontColor;
 	private Mario mario;
 	private Floor floors;
+
 	
 	public Level1(Model model)  {
 		super(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
-		
+		mario = new Mario(model);
+		floors = new Floor(model);
 	}
 
 	@Override
@@ -37,13 +39,10 @@ public class Level1 extends GameState {
 				g.setFill(fontColor);
 				
 				//Golven
-				floors = new Floor(model);
 				floors.drawFloor(g);
-				
+			
 				//Mario
-				mario = new Mario(model);
 				mario.drawMario(g);
-				//mario.getPosition()
 				
 				System.out.println("test");
 	}
@@ -54,7 +53,8 @@ public class Level1 extends GameState {
 
 		if (key.getCode() == KeyCode.ESCAPE) {
 			model.switchState(new Menu(model));
-			
+		}else {
+			mario.keyPressed(key);
 		}
 	}
 	
