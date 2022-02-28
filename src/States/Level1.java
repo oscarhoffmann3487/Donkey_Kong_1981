@@ -24,15 +24,14 @@ public class Level1 extends GameState {
 	private Color fontColor;
 	private Mario mario;
 	private Floor floors;
-	private double x;
-	private double y;
+
 
 	public Level1(Model model) {
 		super(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
-		mario = new Mario(model);
-		floors = new Floor(model, x, y);
+		floors = new Floor(model);
+		mario = new Mario(model, floors.getFloor1());
 	}
 
 	@Override
@@ -47,12 +46,11 @@ public class Level1 extends GameState {
 		// Mario
 		mario.drawMario(g);
 
-		System.out.println("test");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker på " + key.getCode() + " i PlayState");
+		System.out.println("Trycker pï¿½ " + key.getCode() + " i PlayState");
 		if (key.getCode() == KeyCode.ESCAPE) {
 			model.switchState(new Menu(model));
 		} else {
@@ -62,13 +60,8 @@ public class Level1 extends GameState {
 
 	@Override
 	public void update() {
-		System.out.println(mario.getY());
-		if (mario.getMario_2D().intersects(floors.getFloor1())) {
-			System.out.println("går inte");
-			mario.dontUpdate(); 
-		} else {
-			mario.update();
-		}
+		mario.update();
+		
 	}
 
 	@Override

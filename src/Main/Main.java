@@ -1,4 +1,5 @@
 package Main;
+
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 
@@ -24,12 +25,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage gameStage) throws Exception {
 		gameStage.setTitle("Donkey Kong");
-		gameStage.setWidth( SCREEN_WIDTH);
+		gameStage.setWidth(SCREEN_WIDTH);
 		gameStage.setHeight(SCREEN_HEIGHT);
 		Model model = new Model();
 		GameFrame frame = new GameFrame(model, SCREEN_WIDTH, SCREEN_HEIGHT);
 		Scene gameScene = new Scene(frame);
-		
+
 		final double targetFps = 50.0;
 
 		final double nanoPerUpdate = 1000000000.0 / targetFps;

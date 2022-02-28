@@ -6,18 +6,20 @@ import java.util.ArrayList;
 import Logic.Model;
 import States.Level1;
 import javafx.geometry.BoundingBox;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Floor{
 
 	private Image floor;
-	private BoundingBox floor1;
+	private Rectangle2D floor1;
 	
 			
-	public Floor(Model model, double x, double y) { 
-		floor1 = new BoundingBox(0, 655.0, 15, 300);
-	//	Rectangle2D floor2 = new Rectangle2D(250, 655, 15, 300);
+	public Floor(Model model) { 
+		floor1 = new Rectangle2D(0.0, 655.0, 500.0, 15.0);
+		//Rectangle2D floor2 = new Rectangle2D(250, 655, 15, 300);
 	//	Rectangle2D floor3 = new Rectangle2D(0, 555, 15, 300);
 		
 		try {
@@ -28,15 +30,16 @@ public class Floor{
 
 	}
 
-	public BoundingBox getFloor1() {
+	public Rectangle2D getFloor1() {
 		return floor1;
 	}
 
-	public void setFloor1(BoundingBox floor1) {
+	public void setFloor1(Rectangle2D floor1) {
 		this.floor1 = floor1;
 	}
 
 	public void drawFloor(GraphicsContext g) {
+				
 		int floorHeight = 15; 
 		int floorWidth = 300;
 		
