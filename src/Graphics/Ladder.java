@@ -30,7 +30,7 @@ public class Ladder{
 		//floor0
 		Rectangle2D ladder0 = new Rectangle2D(305, floor1Y, ladderWidth, ladderHeight*2+15);
 		//floor1
-		Rectangle2D ladder1 = new Rectangle2D(105, floor2Y, ladderWidth, ladderHeight*2-13);
+		Rectangle2D ladder1 = new Rectangle2D(105, floor2Y, ladderWidth, ladderHeight*2+15);
 		Rectangle2D ladder2 = new Rectangle2D(225, floor2Y, ladderWidth, ladderHeight*2+15);
 		//floor2
 		Rectangle2D ladder3 = new Rectangle2D(170, floor3Y, ladderWidth, ladderHeight*2+15);
