@@ -43,7 +43,7 @@ public class Level1 extends GameState {
 		pauline = new Pauline(model);
 		barrel = new Barrels(model,  floors.getFloorBoundaries());
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
-				ladders.getladderBoundaries(), barrel.getBarrelBoundingBox());
+				ladders.getladderBoundaries());
 
 	}
 
@@ -85,18 +85,12 @@ public class Level1 extends GameState {
 
 	@Override
 	public void update() {
-		mario.update();
 		barrel.update();
+		mario.update();
+		if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+			mario.marioBarrelCollision();
+		}
 	}
 
-	@Override
-	public void activate() {
-
-	}
-
-	@Override
-	public void deactivate() {
-
-	}
-
+	
 }

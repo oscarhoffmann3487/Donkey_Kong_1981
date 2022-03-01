@@ -16,7 +16,6 @@ public class DonkeyKong {
 	
 	
 	public DonkeyKong(Model model) {
-		
 			
 			setDonkeyKongBoundingBox(new Rectangle2D(x, y, 50.0, 50.0));
 			try {

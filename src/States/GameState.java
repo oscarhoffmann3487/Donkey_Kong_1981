@@ -28,8 +28,4 @@ public abstract class GameState {
 		g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 
-	public abstract void activate();
-
-	public abstract void deactivate();
-
 }

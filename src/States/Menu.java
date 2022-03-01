@@ -34,6 +34,7 @@ public class Menu extends GameState {
 
 	private Level1 level1;
 	private Help help;
+	private GameOverMenu gameOverMenu;
 	private Color bgColor;
 	private Color fontColor1;
 	private Color fontColor2;
@@ -48,6 +49,7 @@ public class Menu extends GameState {
 		fontColor2 = Color.RED;
 		level1 = new Level1(model);
 		help = new Help(model);
+		gameOverMenu = new GameOverMenu(model);
 					
 		try {
 			menuImage = new Image(new FileInputStream("donkeyKong.png"));
@@ -88,7 +90,7 @@ public class Menu extends GameState {
 	
 	@Override
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker pÃ¥ " + key.getText() + " i Menu");
+		System.out.println("Trycker på " + key.getText() + " i Menu");
 
 		if (key.getCode() == KeyCode.ENTER) {
 			model.switchState(level1);
@@ -98,21 +100,9 @@ public class Menu extends GameState {
 			//audio();	
 		}else if(key.getCode() == KeyCode.H) {
 			model.switchState(help);
+		}else if(key.getCode() == KeyCode.G) {
+			model.switchState(gameOverMenu);
 		}
-
-	}
-	
-	
-	@Override
-	public void activate() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deactivate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

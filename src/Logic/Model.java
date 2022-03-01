@@ -20,9 +20,7 @@ public class Model {
 
 	
 	public void switchState(GameState nextState) {
-		currentState.deactivate();
 		currentState = nextState;
-		currentState.activate();
 	}
 
 	

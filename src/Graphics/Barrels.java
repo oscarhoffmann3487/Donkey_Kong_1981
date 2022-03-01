@@ -14,11 +14,11 @@ public class Barrels {
 
 	private double x = 35.0;
 	private double y = 135.0;
-	private double speed = 8.0;
 	private double scale = 20.0;
 	private Rectangle2D barrelBoundingBox;
 	private Image barrel;
 	private ArrayList<Rectangle2D> floors;
+	private Rectangle2D mario;
 	
 	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {
 		this.floors = floorBoundaries;
@@ -32,8 +32,8 @@ public class Barrels {
 	}
 	
 	public void drawBarrel(GraphicsContext g) {
-		g.setFill(Color.ANTIQUEWHITE);
-		g.fillRect(x, y, scale, scale);
+	//	g.setFill(Color.ANTIQUEWHITE);
+	//s	g.fillRect(x, y, scale, scale);
 		g.drawImage(barrel, x, y, scale, scale);
 	}
 	
@@ -70,7 +70,7 @@ public class Barrels {
 			y += 2;
 		}
 	}
-	
+		
 	public Rectangle2D getBarrelBoundingBox() {
 		return barrelBoundingBox;
 	}

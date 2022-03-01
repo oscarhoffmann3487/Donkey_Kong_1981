@@ -27,8 +27,6 @@ public class Mario {
 	private double gravity = 2.0;
 	private double jumpHeight = 40;
 	private double scale = 30;
-	// private boolean isOnLadder = false;
-
 	private Image marioStandLeft;
 	private Image marioStandRight;
 	private Rectangle2D marioBoundingBox;
@@ -39,8 +37,7 @@ public class Mario {
 	private ArrayList<Rectangle2D> ladders;
 
 	public Mario(Model model, ArrayList<Rectangle2D> floorBoundaries, Rectangle2D donkeyKong,
-			ArrayList<Rectangle2D> ladderBoundaries, Rectangle2D barrelBoundaries) {
-		this.barrel = barrelBoundaries; 
+			ArrayList<Rectangle2D> ladderBoundaries) {
 		this.floors = floorBoundaries;
 		this.ladders = ladderBoundaries;
 		this.donkeyKong = donkeyKong;
@@ -57,13 +54,11 @@ public class Mario {
 
 	public void drawMario(GraphicsContext g) {
 		g.drawImage(marioStandRight, x, y, scale, scale);
-
 	}
 
 	public void update() {
 		gravity(ladderCollision(), onFloor());
 		marioDonkeyKongCollision();
-		marioBarrelCollision();
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
 		marioLadder();
 	}
@@ -71,13 +66,6 @@ public class Mario {
 	public void marioDonkeyKongCollision() {
 		if (marioBoundingBox.intersects(donkeyKong)) {
 			x += speed;
-		}
-	}
-	
-	public void marioBarrelCollision() {
-		if (marioBoundingBox.intersects(barrel)) {
-			y -= speed;
-			System.out.println("barrel");
 		}
 	}
 
@@ -138,7 +126,7 @@ public class Mario {
 	}
 
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker pï¿½ " + key.getCode() + " i PlayState");
+		System.out.println("Trycker på " + key.getCode() + " i PlayState");
 
 		checkPosition();
 		// HÃ¶ger
@@ -171,13 +159,21 @@ public class Mario {
 		}
 
 	}
-
+	
 	public void checkPosition() {
 		if (x >= SCREEN_WIDTH - scale) {
 			x -= speed;
 		} else if (x <= 0.0) {
 			x += speed;
 		}
+	}
+	
+	public void marioBarrelCollision() {
+		y -= 5;
+	}
+
+	public Rectangle2D getMarioBoundingBox() {
+		return marioBoundingBox;
 	}
 
 }
