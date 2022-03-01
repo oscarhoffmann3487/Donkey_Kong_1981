@@ -5,10 +5,12 @@ import static constants.Constants.SCREEN_WIDTH;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import Graphics.Barrels;
 import Graphics.DonkeyKong;
 import Graphics.Floor;
 import Graphics.Ladder;
 import Graphics.Mario;
+import Graphics.Pauline;
 import Logic.*;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
@@ -27,8 +29,9 @@ public class Level1 extends GameState {
 	private Mario mario;
 	private Floor floors;
 	private DonkeyKong donkeyKong;
+	private Pauline pauline;
 	private Ladder ladders;
-
+	private Barrels barrel;
 
 	public Level1(Model model) {
 		super(model);
@@ -37,8 +40,11 @@ public class Level1 extends GameState {
 		ladders = new Ladder(model);
 		floors = new Floor(model);
 		donkeyKong = new DonkeyKong(model);
-		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(), ladders.getladderBoundaries());
-		
+		pauline = new Pauline(model);
+		barrel = new Barrels(model,  floors.getFloorBoundaries());
+		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
+				ladders.getladderBoundaries(), barrel.getBarrelBoundingBox());
+
 	}
 
 	@Override
@@ -47,19 +53,23 @@ public class Level1 extends GameState {
 		drawBg(g, bgColor);
 		g.setFill(fontColor);
 
-		//Stegar
+		// Stegar
 		ladders.drawLadder(g);
-		
+
 		// Golven
 		floors.drawFloor(g);
 
 		// Mario
 		mario.drawMario(g);
-		
-		//DonkeyKong
+
+		// Barrels
+		barrel.drawBarrel(g);
+
+		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
-		
-		
+
+		// Pauline
+		pauline.drawPauline(g);
 
 	}
 
@@ -76,7 +86,7 @@ public class Level1 extends GameState {
 	@Override
 	public void update() {
 		mario.update();
-		
+		barrel.update();
 	}
 
 	@Override
