@@ -17,7 +17,6 @@ public class Model {
 		// We start out in the MenuState.
 		this.currentState = new Menu(this);
 	}
-
 	
 	public void switchState(GameState nextState) {
 		currentState = nextState;

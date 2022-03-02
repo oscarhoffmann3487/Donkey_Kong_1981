@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,6 +20,7 @@ public class Barrels {
 	private Image barrel;
 	private ArrayList<Rectangle2D> floors;
 	private Rectangle2D mario;
+
 	
 	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {
 		this.floors = floorBoundaries;
@@ -29,14 +31,14 @@ public class Barrels {
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
+		
 	}
+	
 	
 	public void drawBarrel(GraphicsContext g) {
-	//	g.setFill(Color.ANTIQUEWHITE);
-	//s	g.fillRect(x, y, scale, scale);
 		g.drawImage(barrel, x, y, scale, scale);
 	}
-	
+		
 	public boolean barrelFloorRight() {
 		if (barrelBoundingBox.intersects(floors.get(1))) {
 			return true;

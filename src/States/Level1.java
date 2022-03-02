@@ -64,7 +64,7 @@ public class Level1 extends GameState {
 
 		// Barrels
 		barrel.drawBarrel(g);
-
+		
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
 
@@ -88,7 +88,7 @@ public class Level1 extends GameState {
 		barrel.update();
 		mario.update();
 		if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
-			mario.marioBarrelCollision();
+			model.switchState(new GameOverMenu(model));
 		}
 	}
 

@@ -4,29 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
 
 import Logic.*;
-import javafx.geometry.Pos;
+
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 
@@ -64,10 +51,36 @@ public class Menu extends GameState {
 	public void draw(GraphicsContext g) throws FileNotFoundException {
 		drawBg(g, bgColor);
 		g.setFill(fontColor1);
-		g.setFont(new Font(30)); // Big letters
-		g.fillText("Press \"Enter\" to start a new game", 40, 400);
-		g.fillText("Press \"h\" for help", 130, 440);
-		g.fillText("Press \"Esc\" to exit", 130, 480);
+		
+		
+		g.setFill(Color.WHITE);
+		g.fillRect(150, 340, 200, 60);
+		g.setFill(Color.BLACK);
+		g.setFont(new Font(25));
+		g.fillText("NEW GAME", 180, 380);
+		
+		g.setFill(Color.WHITE);
+		g.fillRect(150, 420, 200, 60);
+		g.setFill(Color.BLACK);
+		g.setFont(new Font(25));
+		g.fillText("HELP", 220, 460);
+		
+		g.setFill(Color.WHITE);
+		g.fillRect(150, 500, 200, 60);
+		g.setFill(Color.BLACK);
+		g.setFont(new Font(25));
+		g.fillText("EXIT", 225, 540);
+		
+
+		g.getCanvas().setOnMouseClicked(event -> {
+			if(event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 340 && event.getY() <=400 ) {
+					model.switchState(level1);
+			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 420 && event.getY() <=480 ) {
+				model.switchState(help);
+			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <=560 ) {
+				System.exit(0);
+			}
+		});
 	
 		g.drawImage(menuImage, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
 		
@@ -77,7 +90,7 @@ public class Menu extends GameState {
 		g.fillText("HIGHSCORE: 0003594932", SCREEN_WIDTH / 2 - 130, 30);
 		
 		
-		g.drawImage(donkeyKong, SCREEN_WIDTH / 2 - 50, 500, 80, 80);
+		g.drawImage(donkeyKong, SCREEN_WIDTH / 2 - 50, 580, 80, 80);
 	
 	}
 
@@ -90,19 +103,6 @@ public class Menu extends GameState {
 	
 	@Override
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker på " + key.getText() + " i Menu");
-
-		if (key.getCode() == KeyCode.ENTER) {
-			model.switchState(level1);
-		} else if (key.getCode() == KeyCode.ESCAPE) {
-			System.exit(0);
-		}else if (key.getCode() == KeyCode.A) {
-			//audio();	
-		}else if(key.getCode() == KeyCode.H) {
-			model.switchState(help);
-		}else if(key.getCode() == KeyCode.G) {
-			model.switchState(gameOverMenu);
-		}
 	}
 
 	@Override
