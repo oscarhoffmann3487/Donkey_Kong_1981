@@ -4,6 +4,8 @@ import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
 
 import Graphics.Barrels;
 import Graphics.DonkeyKong;
@@ -31,9 +33,8 @@ public class Level1 extends GameState {
 	private DonkeyKong donkeyKong;
 	private Pauline pauline;
 	private Ladder ladders;
-	private Barrels barrel;
-	private Barrels barrel1;
 	private int counter;
+	private ArrayList<Barrels> barrels;
 
 	public Level1(Model model) {
 		super(model);
@@ -43,8 +44,7 @@ public class Level1 extends GameState {
 		floors = new Floor(model);
 		donkeyKong = new DonkeyKong(model);
 		pauline = new Pauline(model);
-		barrel = new Barrels(model,  floors.getFloorBoundaries());
-		barrel1 = new Barrels(model,  floors.getFloorBoundaries());
+		barrels = new ArrayList<>();
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 
@@ -66,9 +66,10 @@ public class Level1 extends GameState {
 		mario.drawMario(g);
 
 		// Barrels
-		barrel1.drawBarrel(g);
-		barrel.drawBarrel(g);
-		
+		for (Barrels barrel : barrels) {
+			barrel.drawBarrel(g);
+		}
+
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
 
@@ -90,20 +91,34 @@ public class Level1 extends GameState {
 	@Override
 	public void update() {
 		counter += 1;
-		
-		System.out.println(counter);
-		barrel.update();
-		barrel1.update();
 		mario.update();
-		
-		if (counter == 100) {
-			barrel1 = new Barrels(model,  floors.getFloorBoundaries());
-		}
-				
-		if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
-			model.switchState(new GameOverMenu(model));
-		}
-		
+		createBarrels();
+
 	}
-	
+
+	public void createBarrels() {
+		for (Barrels barrel : barrels) {
+			barrel.update();
+			if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+				model.switchState(new GameOverMenu(model));
+			}
+		}
+		if (counter == 100) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+
+		} else if (counter == 170) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+
+		} else if (counter == 250) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+
+		} else if (counter == 300) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+
+		} else if (counter == 490) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			counter = 0;
+		}
+	}
+
 }
