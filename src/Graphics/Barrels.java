@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
+import States.Level1;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,11 +16,16 @@ public class Barrels {
 
 	private double x = 35.0;
 	private double y = 135.0;
+	public double getY() {
+		return y;
+	}
+
 	private double scale = 20.0;
 	private Rectangle2D barrelBoundingBox;
 	private Image barrel;
 	private ArrayList<Rectangle2D> floors;
 	private Rectangle2D mario;
+	private Level1 level1;
 
 	
 	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {
@@ -84,5 +90,6 @@ public class Barrels {
 	public void update() {
 		rollingBarrels();
 		barrelBoundingBox = new Rectangle2D(x, y, scale, scale);
+		
 	}
 }

@@ -32,6 +32,8 @@ public class Level1 extends GameState {
 	private Pauline pauline;
 	private Ladder ladders;
 	private Barrels barrel;
+	private Barrels barrel1;
+	private int counter;
 
 	public Level1(Model model) {
 		super(model);
@@ -42,6 +44,7 @@ public class Level1 extends GameState {
 		donkeyKong = new DonkeyKong(model);
 		pauline = new Pauline(model);
 		barrel = new Barrels(model,  floors.getFloorBoundaries());
+		barrel1 = new Barrels(model,  floors.getFloorBoundaries());
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 
@@ -63,6 +66,7 @@ public class Level1 extends GameState {
 		mario.drawMario(g);
 
 		// Barrels
+		barrel1.drawBarrel(g);
 		barrel.drawBarrel(g);
 		
 		// DonkeyKong
@@ -85,12 +89,21 @@ public class Level1 extends GameState {
 
 	@Override
 	public void update() {
+		counter += 1;
+		
+		System.out.println(counter);
 		barrel.update();
+		barrel1.update();
 		mario.update();
+		
+		if (counter == 100) {
+			barrel1 = new Barrels(model,  floors.getFloorBoundaries());
+		}
+				
 		if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 			model.switchState(new GameOverMenu(model));
 		}
+		
 	}
-
 	
 }

@@ -53,44 +53,48 @@ public class Menu extends GameState {
 		g.setFill(fontColor1);
 		
 		
+		g.setFill(Color.DARKBLUE);
+		g.fillRoundRect(150.0, 360.0, 200.0, 60.0, 30.0, 30.0);
 		g.setFill(Color.WHITE);
-		g.fillRect(150, 340, 200, 60);
-		g.setFill(Color.BLACK);
 		g.setFont(new Font(25));
-		g.fillText("NEW GAME", 180, 380);
+		g.fillText("NEW GAME", 180, 400);
 		
+		g.setFill(Color.DARKBLUE);
+		g.fillRoundRect(150.0, 430.0, 200.0, 60.0, 30.0, 30.0);
 		g.setFill(Color.WHITE);
-		g.fillRect(150, 420, 200, 60);
-		g.setFill(Color.BLACK);
 		g.setFont(new Font(25));
-		g.fillText("HELP", 220, 460);
+		g.fillText("HIGHSCORE", 185, 470);
 		
+		
+		g.setFill(Color.DARKBLUE);
+		g.fillRoundRect(150.0, 500.0, 200.0, 60.0, 30.0, 30.0);
 		g.setFill(Color.WHITE);
-		g.fillRect(150, 500, 200, 60);
-		g.setFill(Color.BLACK);
 		g.setFont(new Font(25));
-		g.fillText("EXIT", 225, 540);
+		g.fillText("HELP", 220, 540); 
 		
-
+		g.setFill(Color.DARKBLUE);
+		g.fillRoundRect(150.0, 570.0, 200.0, 60.0, 30.0, 30.0);
+		g.setFill(Color.WHITE);
+		g.setFont(new Font(25));
+		g.fillText("EXIT", 225, 610); 	
+		
 		g.getCanvas().setOnMouseClicked(event -> {
-			if(event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 340 && event.getY() <=400 ) {
+			if(event.getX() <= 360 && event.getX() >= 150 && event.getY() >= 360 && event.getY() <= 420 ) {
 					model.switchState(level1);
-			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 420 && event.getY() <=480 ) {
+			}else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 430 && event.getY() <= 490 ) {
+			//	model.switchState(help);			
+			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <= 560 ) {
 				model.switchState(help);
-			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <=560 ) {
+			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 570 && event.getY() <= 630 ) {
 				System.exit(0);
 			}
+		
 		});
 	
 		g.drawImage(menuImage, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
 		
-		//Highscoretext
-		g.setFill(fontColor2);
-		g.setFont(new Font(20)); 
-		g.fillText("HIGHSCORE: 0003594932", SCREEN_WIDTH / 2 - 130, 30);
 		
-		
-		g.drawImage(donkeyKong, SCREEN_WIDTH / 2 - 50, 580, 80, 80);
+	//	g.drawImage(donkeyKong, SCREEN_WIDTH / 2 - 50, 580, 80, 80);
 	
 	}
 
