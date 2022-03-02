@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import Logic.Model;
 import States.Level1;
 import States.Menu;
+import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,7 +22,7 @@ import static constants.Constants.SCREEN_WIDTH;
 
 public class Mario {
 
-	private double x = 0.0;
+	private double x = 10.0;
 	private double y = 625.0;
 	private double speed = 8.0;
 	private double climbingSpeed = 5.0;
@@ -31,7 +33,6 @@ public class Mario {
 	private Image marioStandRight;
 	private Rectangle2D marioBoundingBox;
 	private Rectangle2D donkeyKong;
-	private Rectangle2D barrel;
 
 	private ArrayList<Rectangle2D> floors;
 	private ArrayList<Rectangle2D> ladders;
@@ -60,7 +61,8 @@ public class Mario {
 		gravity(ladderCollision(), onFloor());
 		marioDonkeyKongCollision();
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
-		marioLadder();
+		marioSpecificLadderAndFloor();
+	
 	}
 
 	public void marioDonkeyKongCollision() {
@@ -95,7 +97,7 @@ public class Mario {
 		return false;
 	}
 
-	public boolean marioLadder2() {
+	public boolean marioOnlyOnLadder() {
 		if (ladderCollision() && !onFloor()) {
 			return true;
 		} else {
@@ -103,7 +105,7 @@ public class Mario {
 		}
 	}
 
-	public boolean marioLadder() {
+	public boolean marioSpecificLadderAndFloor() {
 		if (marioBoundingBox.intersects(ladders.get(0)) && marioBoundingBox.intersects(floors.get(1))) {
 			return true;
 		} else if (marioBoundingBox.intersects(ladders.get(1)) && marioBoundingBox.intersects(floors.get(2))) {
@@ -125,17 +127,52 @@ public class Mario {
 		}
 	}
 
-	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
+	public boolean marioYCoordinate() {
+		double yRef1 = y + 28.0;
+		double yRef2 = y + 29.0;
+		double floor1Y = 555;
+		double floor2Y = 455;
+		double floor3Y = 355;
+		double floor4Y = 255;
+		double floor5Y = 155;
+		double floor6Y = 100;
 
+		if (yRef1 == floor1Y || yRef2 == floor1Y) {
+			return true;
+		} else if (yRef1 == floor2Y || yRef2 == floor2Y) {
+			return true;
+		} else if (yRef1 == floor3Y || yRef2 == floor3Y) {
+			return true;
+		} else if (yRef1 == floor4Y || yRef2 == floor4Y) {
+			return true;
+		} else if (yRef1 == floor5Y || yRef2 == floor5Y) {
+			return true;
+		} else if (yRef1 == floor6Y || yRef2 == floor6Y) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void keyPressed(KeyEvent key) {
+		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
+		
 		checkPosition();
 		// Höger
 		if (key.getCode() == KeyCode.D) {
-			x += speed;
+
+			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+			} else {
+				x += speed;
+			}
 
 			// Vänster
 		} else if (key.getCode() == KeyCode.A) {
-			x -= speed;
+
+			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+			} else {
+				x -= speed;
+			}
 
 			// Hoppa
 		} else if (key.getCode() == KeyCode.SPACE) {
@@ -153,13 +190,12 @@ public class Mario {
 			// klättra nedåt
 		} else if (key.getCode() == KeyCode.S) {
 
-			if (marioLadder() || marioLadder2()) {
+			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
 				y += climbingSpeed;
 			}
 		}
-
 	}
-	
+
 	public void checkPosition() {
 		if (x >= SCREEN_WIDTH - scale) {
 			x -= speed;
@@ -167,7 +203,7 @@ public class Mario {
 			x += speed;
 		}
 	}
-	
+
 	public void marioBarrelCollision() {
 		y -= 5;
 	}
