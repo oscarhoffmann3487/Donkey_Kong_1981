@@ -24,8 +24,6 @@ public class Barrels {
 	private Rectangle2D barrelBoundingBox;
 	private Image barrel;
 	private ArrayList<Rectangle2D> floors;
-	private Rectangle2D mario;
-	private Level1 level1;
 
 	
 	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {

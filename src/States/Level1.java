@@ -33,6 +33,10 @@ public class Level1 extends GameState {
 	private DonkeyKong donkeyKong;
 	private Pauline pauline;
 	private Ladder ladders;
+<<<<<<< Updated upstream
+=======
+	private Barrels barrel;
+>>>>>>> Stashed changes
 	private int counter;
 	private ArrayList<Barrels> barrels;
 
@@ -44,7 +48,11 @@ public class Level1 extends GameState {
 		floors = new Floor(model);
 		donkeyKong = new DonkeyKong(model);
 		pauline = new Pauline(model);
+<<<<<<< Updated upstream
 		barrels = new ArrayList<>();
+=======
+		barrel = new Barrels(model, floors.getFloorBoundaries());
+>>>>>>> Stashed changes
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 
@@ -66,9 +74,13 @@ public class Level1 extends GameState {
 		mario.drawMario(g);
 
 		// Barrels
+<<<<<<< Updated upstream
 		for (Barrels barrel : barrels) {
 			barrel.drawBarrel(g);
 		}
+=======
+		barrel.drawBarrel(g);
+>>>>>>> Stashed changes
 
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
@@ -91,6 +103,7 @@ public class Level1 extends GameState {
 	@Override
 	public void update() {
 		counter += 1;
+<<<<<<< Updated upstream
 		mario.update();
 		createBarrels();
 
@@ -118,6 +131,15 @@ public class Level1 extends GameState {
 		} else if (counter == 490) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 			counter = 0;
+=======
+
+		System.out.println(counter);
+		barrel.update();
+		mario.update();
+		
+		if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+			model.switchState(new GameOverMenu(model));
+>>>>>>> Stashed changes
 		}
 	}
 

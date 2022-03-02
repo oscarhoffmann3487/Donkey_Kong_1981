@@ -22,6 +22,7 @@ public class Menu extends GameState {
 	private Level1 level1;
 	private Help help;
 	private GameOverMenu gameOverMenu;
+	private HighScore highScore;
 	private Color bgColor;
 	private Color fontColor1;
 	private Color fontColor2;
@@ -36,6 +37,8 @@ public class Menu extends GameState {
 		fontColor2 = Color.RED;
 		level1 = new Level1(model);
 		help = new Help(model);
+		highScore = new HighScore(model);
+		
 		gameOverMenu = new GameOverMenu(model);
 					
 		try {
@@ -82,7 +85,7 @@ public class Menu extends GameState {
 			if(event.getX() <= 360 && event.getX() >= 150 && event.getY() >= 360 && event.getY() <= 420 ) {
 					model.switchState(level1);
 			}else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 430 && event.getY() <= 490 ) {
-			//	model.switchState(help);			
+				model.switchState(highScore);			
 			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <= 560 ) {
 				model.switchState(help);
 			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 570 && event.getY() <= 630 ) {

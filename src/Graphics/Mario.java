@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
+import States.GameOverMenu;
 import States.Level1;
 import States.Menu;
 import javafx.animation.AnimationTimer;
@@ -33,15 +34,17 @@ public class Mario {
 	private Image marioStandRight;
 	private Rectangle2D marioBoundingBox;
 	private Rectangle2D donkeyKong;
+	private Model model;
 
 	private ArrayList<Rectangle2D> floors;
 	private ArrayList<Rectangle2D> ladders;
 
 	public Mario(Model model, ArrayList<Rectangle2D> floorBoundaries, Rectangle2D donkeyKong,
-			ArrayList<Rectangle2D> ladderBoundaries) {
+		ArrayList<Rectangle2D> ladderBoundaries) {
 		this.floors = floorBoundaries;
 		this.ladders = ladderBoundaries;
 		this.donkeyKong = donkeyKong;
+		this.model = model;
 
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
 
@@ -67,7 +70,7 @@ public class Mario {
 
 	public void marioDonkeyKongCollision() {
 		if (marioBoundingBox.intersects(donkeyKong)) {
-			x += speed;
+			model.switchState(new GameOverMenu(model));
 		}
 	}
 

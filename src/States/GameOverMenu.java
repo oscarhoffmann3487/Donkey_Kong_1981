@@ -28,7 +28,6 @@ public class GameOverMenu extends GameState {
 
 	private Color bgColor;
 	private Color fontColor1;
-
 	
 	public GameOverMenu(Model model) {
 		super(model);
@@ -38,8 +37,7 @@ public class GameOverMenu extends GameState {
 	
 	
 	@Override
-	public void update() throws FileNotFoundException {
-			
+	public void update() throws FileNotFoundException {		
 	}
 
 	@Override
@@ -56,7 +54,6 @@ public class GameOverMenu extends GameState {
 		g.setFill(bgColor);
 		g.setFont(new Font(25));
 		g.fillText("Main Menu", 190, 340);
-	
 
 		g.getCanvas().setOnMouseClicked(event -> {
 			if(event.getX() <= 400 && event.getX() >= 100 && event.getY() >=300 && event.getY() <=380 ) {

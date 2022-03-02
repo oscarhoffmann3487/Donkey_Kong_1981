@@ -36,8 +36,6 @@ public class Help extends GameState{
 
 	@Override
 	public void update() throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -47,11 +45,11 @@ public class Help extends GameState{
 		g.setFill(fontColor);
 		g.drawImage(menuImage, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
 		g.setFont(new Font(20));
-		g.fillText("Move around by using the arrowkeys.", 40, 400);
-		g.fillText("You can jump using spacebar.", 40, 440);
-		g.fillText("Watch out for barrels and Donkey Kong.", 40, 480);
-		g.fillText("Collect all of the princess stuffs, the faster the better", 40, 520);
-		g.fillText("Press \"b\" to go back to main menu.", 40, 5600);
+		g.fillText("Move around by using the keys A, D, W, S.", 20, 400);
+		g.fillText("You can jump by using spacebar.", 20, 440);
+		g.fillText("Watch out for barrels and Donkey Kong.", 20, 480);
+		g.fillText("Collect all of Pauline´s items, the faster the better.", 20, 520);
+		g.fillText("Press \"b\" to go back to main menu.", 20, 560);
 		
 	}
 
