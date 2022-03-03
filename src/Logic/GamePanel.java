@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 public class GamePanel extends Canvas {
 	private Model model;
-	private KeyEvent key;
+	private Mario mario;
 
     public GamePanel(final Model model, int width, int height) {
         this.model = model;

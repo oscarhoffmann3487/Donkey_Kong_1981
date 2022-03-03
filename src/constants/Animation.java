@@ -19,6 +19,7 @@ public class Animation {
 	private Image score100;
 	private Image score200;
 	private Image score300;
+	private Image marioClimb;
 	
 	public Image getPurse() {
 		return purse;
@@ -38,8 +39,9 @@ public class Animation {
 
 	public Animation(Model model) {
 		try {
-			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioStandRight.png"));
-			marioStandLeft = new Image(new FileInputStream("Images/Mario/left/MarioStandLeft.png"));
+			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
+			marioStandLeft = new Image(new FileInputStream("Images/Mario/left/MarioRun1Left.png"));
+			marioClimb = new Image(new FileInputStream("Images/Mario/MarioClimb.png"));
 			purse = new Image(new FileInputStream("Images/PaulinesIteams/purse.png"));
 			hat = new Image(new FileInputStream("Images/PaulinesIteams/Hatt.png"));
 			umbrella = new Image(new FileInputStream("Images/PaulinesIteams/Umbrella.png"));
@@ -100,5 +102,9 @@ public class Animation {
 
 	public Image getScore300() {
 		return score300;
+	}
+
+	public Image getMarioClimb() {
+		return marioClimb;
 	}
 }

@@ -47,6 +47,4 @@ public class PaulinesItem {
 		return hatBoundingBox;
 	}
 	
-	
-
 }

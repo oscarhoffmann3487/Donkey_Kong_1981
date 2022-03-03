@@ -8,7 +8,7 @@ import constants.Animation;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -27,7 +27,7 @@ public class Mario {
 	private Rectangle2D donkeyKong;
 	private Model model;
 	private Animation animation;
-
+	private String direction = "right";
 
 	private ArrayList<Rectangle2D> floors;
 	private ArrayList<Rectangle2D> ladders;
@@ -38,14 +38,61 @@ public class Mario {
 		this.ladders = ladderBoundaries;
 		this.donkeyKong = donkeyKong;
 		this.model = model;
+		this.direction = direction;
 		animation = new Animation(model);
 
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
+	}
+	
 
+	public void keyPressed(KeyEvent key) {
+		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
+		checkPosition();
+		// Höger
+		if (key.getCode() == KeyCode.D) {
+			direction = "right";
+			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+			} else {
+				x += speed;
+			}
+			// Vänster
+		} else if (key.getCode() == KeyCode.A) {
+			direction = "left";
+			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+			} else {
+				x -= speed;
+			}
+			// Hoppa
+		} else if (key.getCode() == KeyCode.SPACE) {
+			if (onFloor()) {
+				y -= jumpHeight;
+			}
+			// Klättra uppåt
+		} else if (key.getCode() == KeyCode.W) {
+			direction = "climb";
+			if (ladderCollision()) {
+				y -= climbingSpeed;
+			}
+			// klättra nedåt
+		} else if (key.getCode() == KeyCode.S) {
+			direction = "climb";
+			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
+				y += climbingSpeed;
+			}
+		}
 	}
 
+
 	public void drawMario(GraphicsContext g) {
-		g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
+		if (direction == "right") {
+			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
+		} else if (direction == "left") {
+			g.drawImage(animation.getMarioStandLeft(), x, y, scale, scale);
+		} else if (direction == "climb") {
+			g.drawImage(animation.getMarioClimb(), x, y, scale, scale);
+		} else {
+			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
+		}
 		
 	}
 	
@@ -144,43 +191,6 @@ public class Mario {
 			return true;
 		} else {
 			return false;
-		}
-	}
-
-	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
-		checkPosition();
-		// Höger
-		if (key.getCode() == KeyCode.D) {
-			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
-			} else {
-				x += speed;
-			}
-
-			// Vänster
-		} else if (key.getCode() == KeyCode.A) {
-			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
-			} else {
-				x -= speed;
-			}
-
-			// Hoppa
-		} else if (key.getCode() == KeyCode.SPACE) {
-			if (onFloor()) {
-				y -= jumpHeight;
-			}
-
-			// Klättra uppåt
-		} else if (key.getCode() == KeyCode.W) {
-			if (ladderCollision()) {
-				y -= climbingSpeed;
-			}
-
-			// klättra nedåt
-		} else if (key.getCode() == KeyCode.S) {
-			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
-				y += climbingSpeed;
-			}
 		}
 	}
 
