@@ -3,18 +3,17 @@ package Main;
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import Level1.*;
+
 import Logic.GameFrame;
 import Logic.Model;
-import constants.Animation;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
+
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -55,7 +54,6 @@ public class Main extends Application {
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
-
 					try {
 						frame.repaint();
 					} catch (FileNotFoundException e) {

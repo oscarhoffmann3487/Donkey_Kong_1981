@@ -5,7 +5,7 @@ import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+
 
 public class Cape { 
 	private Rectangle2D capeBoundingBox;

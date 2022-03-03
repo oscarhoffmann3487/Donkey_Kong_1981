@@ -1,18 +1,15 @@
 package Level1;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+
 
 public class DonkeyKong {
 	private double x = 30.0;
 	private double y = 115.0;
-	private Image donkeyCenter;
 	private Rectangle2D donkeyKongBoundingBox;
 	private Animation animation;
 	

@@ -1,13 +1,10 @@
 package Level1;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 public class Pauline {
 	private double x = 400.0;

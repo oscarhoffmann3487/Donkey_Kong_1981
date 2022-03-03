@@ -1,27 +1,22 @@
 package Level1;
 
-import static constants.Constants.SCREEN_HEIGHT; 
-import static constants.Constants.SCREEN_WIDTH;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Random;
+
 
 import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
 import States.HasWon;
 import States.Menu;
-import constants.Animation;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.canvas.Canvas;
+
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+
 
 public class Level1 extends GameState {
 
@@ -38,9 +33,10 @@ public class Level1 extends GameState {
 	private HasWon hasWon;
 	private Cape cape;
 	private int counter;
+	private int counter2;
 	private ArrayList<Barrels> barrels;
+	private ArrayList<Cape> capes;
 	private ArrayList<PaulinesItem> paulinesItem;
-	
 
 	public Level1(Model model) {
 		super(model);
@@ -57,9 +53,11 @@ public class Level1 extends GameState {
 		cape = new Cape(model);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
+		capes = new ArrayList<>();
 		paulinesItem.add(purse);
 		paulinesItem.add(umbrella);
 		paulinesItem.add(hat);
+		capes.add(cape);
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 	}
@@ -78,9 +76,16 @@ public class Level1 extends GameState {
 
 		// Mario
 		mario.drawMario(g);
-		
-		//Cape
-		cape.drawCape(g);
+
+		// Cape
+		Cape();
+		for (Cape c : capes) {
+			if (c == cape) {
+				cape.drawCape(g);
+			} else {
+
+			}
+		}
 
 		// Paulines Items
 		PaulinesItem();
@@ -106,18 +111,23 @@ public class Level1 extends GameState {
 		pauline.drawPauline(g);
 
 	}
-	
+
 	public void PaulinesItem() {
-		
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
-			//bonuspoäng
+			// bonuspoäng
 			paulinesItem.remove(purse);
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
-			//bonuspoäng
+			// bonuspoäng
 			paulinesItem.remove(hat);
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
-			//bonuspoäng
+			// bonuspoäng
 			paulinesItem.remove(umbrella);
+		}
+	}
+
+	public void Cape() {
+		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
+			capes.remove(cape);
 		}
 	}
 
@@ -128,26 +138,36 @@ public class Level1 extends GameState {
 			model.switchState(new Menu(model));
 		} else {
 			mario.keyPressed(key);
-			
+
 		}
 	}
 
 	@Override
 	public void update() {
 		counter += 1;
+		counter2 += 1;
 		mario.update();
 		createBarrels();
 		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox())) {
 			model.switchState(hasWon);
 		}
+		
+		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
+			counter2 = 0;
+		}
+		
+	
 	}
 
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
-			barrel.update();
-			if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+			barrel.update();	
+			if (counter2 > 0 && counter2 < 400) {
+				if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+				} 
+			}else if (counter > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				model.switchState(new GameOverMenu(model));
-			}
+			}	
 		}
 		if (counter == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
