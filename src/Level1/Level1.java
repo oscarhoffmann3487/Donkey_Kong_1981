@@ -3,20 +3,18 @@ package Level1;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-
 import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
 import States.HasWon;
 import States.Menu;
-
+import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.paint.Color;
-
 
 public class Level1 extends GameState {
 
@@ -32,11 +30,13 @@ public class Level1 extends GameState {
 	private PaulinesItem umbrella;
 	private HasWon hasWon;
 	private Cape cape;
+	private Animation animation;
 	private int counter;
-	private int counter2;
+	private int counter2 = 400;
 	private ArrayList<Barrels> barrels;
 	private ArrayList<Cape> capes;
 	private ArrayList<PaulinesItem> paulinesItem;
+	private ArrayList<PaulinesItem> mariosItem;
 
 	public Level1(Model model) {
 		super(model);
@@ -51,8 +51,10 @@ public class Level1 extends GameState {
 		pauline = new Pauline(model);
 		hasWon = new HasWon(model);
 		cape = new Cape(model);
+		animation = new Animation(model);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
+		mariosItem = new ArrayList<>();
 		capes = new ArrayList<>();
 		paulinesItem.add(purse);
 		paulinesItem.add(umbrella);
@@ -70,25 +72,19 @@ public class Level1 extends GameState {
 
 		// Stegar
 		ladders.drawLadder(g);
-
 		// Golven
 		floors.drawFloor(g);
-
 		// Mario
 		mario.drawMario(g);
-
 		// Cape
 		Cape();
 		for (Cape c : capes) {
 			if (c == cape) {
 				cape.drawCape(g);
-			} else {
-
 			}
 		}
-
 		// Paulines Items
-		PaulinesItem();
+		PaulinesItem(g);
 		for (PaulinesItem item : paulinesItem) {
 			if (item == purse) {
 				purse.drawPurse(g);
@@ -98,30 +94,30 @@ public class Level1 extends GameState {
 				umbrella.drawUmbrella(g);
 			}
 		}
-
 		// Barrels
 		for (Barrels barrel : barrels) {
 			barrel.drawBarrel(g);
 		}
-
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
-
 		// Pauline
 		pauline.drawPauline(g);
-
 	}
 
-	public void PaulinesItem() {
+	public void PaulinesItem(GraphicsContext g) {
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
-			// bonuspoäng
+			// metod som skickar vidare poäng till highscore-klassen
+			g.drawImage(animation.getScore300(), 430.0, 215.0, 25.0, 25.0);
 			paulinesItem.remove(purse);
+			mariosItem.add(purse);
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
-			// bonuspoäng
+			g.drawImage(animation.getScore200(), 30.0, 320.0, 25.0, 25.0);
 			paulinesItem.remove(hat);
+			mariosItem.add(hat);
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
-			// bonuspoäng
+			g.drawImage(animation.getScore100(), 440.0, 405.0, 25.0, 25.0);
 			paulinesItem.remove(umbrella);
+			mariosItem.add(umbrella);
 		}
 	}
 
@@ -138,7 +134,6 @@ public class Level1 extends GameState {
 			model.switchState(new Menu(model));
 		} else {
 			mario.keyPressed(key);
-
 		}
 	}
 
@@ -148,26 +143,24 @@ public class Level1 extends GameState {
 		counter2 += 1;
 		mario.update();
 		createBarrels();
-		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox())) {
+		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
+				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
 			model.switchState(hasWon);
 		}
-		
 		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
 			counter2 = 0;
 		}
-		
-	
 	}
 
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
-			barrel.update();	
+			barrel.update();
 			if (counter2 > 0 && counter2 < 400) {
 				if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
-				} 
-			}else if (counter > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+				}
+			} else if (counter > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				model.switchState(new GameOverMenu(model));
-			}	
+			}
 		}
 		if (counter == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));

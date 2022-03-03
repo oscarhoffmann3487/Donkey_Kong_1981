@@ -16,6 +16,9 @@ public class Animation {
 	private Image ladder;
 	private Image barrel;
 	private Image cape;
+	private Image score100;
+	private Image score200;
+	private Image score300;
 	
 	public Image getPurse() {
 		return purse;
@@ -46,6 +49,9 @@ public class Animation {
 			ladder = new Image(new FileInputStream("ladder1.png"));
 			barrel = new Image(new FileInputStream("barrel.png"));
 			cape = new Image(new FileInputStream("Images/cape.png"));
+			score100 = new Image(new FileInputStream("Images/Scores/Score100.png"));
+			score200 = new Image(new FileInputStream("Images/Scores/Score200.png"));
+			score300 = new Image(new FileInputStream("Images/Scores/Score300.png"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
@@ -82,5 +88,17 @@ public class Animation {
 
 	public Image getCape() {
 		return cape;
+	}
+
+	public Image getScore100() {
+		return score100;
+	}
+
+	public Image getScore200() {
+		return score200;
+	}
+
+	public Image getScore300() {
+		return score300;
 	}
 }

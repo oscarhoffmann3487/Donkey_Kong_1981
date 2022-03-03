@@ -47,7 +47,6 @@ public class Main extends Application {
 			long lastUpdate = 0;
 
 			public void handle(long now) {
-
 				if ((now - lastUpdate) > nanoPerUpdate) {
 					try {
 						model.update();
