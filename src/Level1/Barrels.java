@@ -1,11 +1,11 @@
-package Graphics;
+package Level1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
-import States.Level1;
+import constants.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,25 +22,20 @@ public class Barrels {
 
 	private double scale = 20.0;
 	private Rectangle2D barrelBoundingBox;
-	private Image barrel;
 	private ArrayList<Rectangle2D> floors;
+	private Animation animation; 
 
 	
 	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {
 		this.floors = floorBoundaries;
 		barrelBoundingBox = new Rectangle2D(x, y, scale, scale);
-		
-		try {
-			barrel = new Image(new FileInputStream("barrel.png"));
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find image-files!");
-		}
+		animation = new Animation(model);
 		
 	}
 	
 	
 	public void drawBarrel(GraphicsContext g) {
-		g.drawImage(barrel, x, y, scale, scale);
+		g.drawImage(animation.getBarrel(), x, y, scale, scale);
 	}
 		
 	public boolean barrelFloorRight() {

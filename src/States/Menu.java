@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 
 import java.io.FileNotFoundException;
 
+import Level1.Level1;
 import Logic.*;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -110,6 +111,9 @@ public class Menu extends GameState {
 	
 	@Override
 	public void keyPressed(KeyEvent key) {
+		if (key.getCode() == KeyCode.G) {
+			model.switchState(gameOverMenu);	
+			}
 	}
 
 	@Override

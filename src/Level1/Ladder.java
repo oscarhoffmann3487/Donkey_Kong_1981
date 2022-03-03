@@ -1,11 +1,11 @@
-package Graphics;
+package Level1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
-import States.Level1;
+import constants.Animation;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,8 +14,8 @@ import javafx.scene.paint.Color;
 
 public class Ladder{
 
-	private Image ladder;
 	private ArrayList<Rectangle2D> ladderBoundaries;
+	private Animation animation;
 	double ladderWidth = 15.0;
 	double ladderHeight = 43.0;
 	double floor0Y = 655.0;
@@ -44,6 +44,8 @@ public class Ladder{
 		
 		ladderBoundaries = new ArrayList<>();
 		
+		animation = new Animation(model);
+		
 		ladderBoundaries.add(ladder0);
 		ladderBoundaries.add(ladder1);
 		ladderBoundaries.add(ladder2);
@@ -52,14 +54,6 @@ public class Ladder{
 		ladderBoundaries.add(ladder5);
 		ladderBoundaries.add(ladder6);
 		ladderBoundaries.add(ladder7);
-
-
-		// Inläsning av bildfilen
-		try {
-			ladder = new Image(new FileInputStream("ladder1.png"));
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find image-files!");
-		}
 
 	}
 
@@ -70,31 +64,31 @@ public class Ladder{
 	public void drawLadder(GraphicsContext g) {
 
 		// Floor0
-		g.drawImage(ladder, 305, floor0Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 305, floor0Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 305, floor0Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 305, floor0Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		// Floor1
-		g.drawImage(ladder, 105, floor1Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 105, floor1Y-ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 225, floor1Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 225, floor1Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 105, floor1Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 105, floor1Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 225, floor1Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 225, floor1Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		// Floor2
-		g.drawImage(ladder, 170, floor2Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 170, floor2Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 170, floor2Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 170, floor2Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		//FLoor3
-		g.drawImage(ladder, 255, floor3Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 255, floor3Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 255, floor3Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 255, floor3Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		//Floor4
-		g.drawImage(ladder, 185, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 185, floor4Y-ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 315, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(ladder, 315, floor4Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 185, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 185, floor4Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 315, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 315, floor4Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		//FLoor5
-		g.drawImage(ladder, 365, floor5Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder(), 365, floor5Y-ladderHeight, ladderWidth, ladderHeight);
 
 
 	}

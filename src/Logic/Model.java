@@ -2,7 +2,7 @@ package Logic;
 
 import java.io.FileNotFoundException;
 
-import Graphics.*;
+import Level1.*;
 import States.GameState;
 import States.Menu;
 import javafx.scene.canvas.GraphicsContext;

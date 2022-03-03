@@ -1,11 +1,11 @@
-package Graphics;
+package Level1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Logic.Model;
-import States.Level1;
+import constants.Animation;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,8 +14,8 @@ import javafx.scene.paint.Color;
 
 public class Floor {
 
-	private Image floor;
 	private ArrayList<Rectangle2D> floorBoundaries;
+	private Animation animation;
 
 	public Floor(Model model) {
 		Rectangle2D floor0 = new Rectangle2D(0.0, 655.0, 500.0, 15.0);
@@ -36,13 +36,7 @@ public class Floor {
 		floorBoundaries.add(floor5);
 		floorBoundaries.add(floor6);
 
-
-		// Inläsning av bildfilen
-		try {
-			floor = new Image(new FileInputStream("floor.png"));
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find image-files!");
-		}
+		animation = new Animation(model);
 
 	}
 
@@ -63,24 +57,24 @@ public class Floor {
 		 */
 		
 		// Floor0
-		g.drawImage(floor, 0, 655, floorWidth, floorHeight);
-		g.drawImage(floor, 250, 655, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 0, 655, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 250, 655, floorWidth, floorHeight);
 		// Floor1
-		g.drawImage(floor, 0, 555, floorWidth, floorHeight);
-		g.drawImage(floor, 100, 555, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 0, 555, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 100, 555, floorWidth, floorHeight);
 		// Floor2
-		g.drawImage(floor, 100, 455, floorWidth, floorHeight);
-		g.drawImage(floor, 250, 455, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 100, 455, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 250, 455, floorWidth, floorHeight);
 		// Floor3
-		g.drawImage(floor, 0, 355, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 0, 355, floorWidth, floorHeight);
 		// Floor4
-		g.drawImage(floor, 100, 255, floorWidth, floorHeight);
-		g.drawImage(floor, 250, 255, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 100, 255, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 250, 255, floorWidth, floorHeight);
 		// Floor5
-		g.drawImage(floor, 0, 155, floorWidth, floorHeight);
-		g.drawImage(floor, 100, 155, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 0, 155, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 100, 155, floorWidth, floorHeight);
 		// Floor6
-		g.drawImage(floor, 350, 100, floorWidth, floorHeight);
+		g.drawImage(animation.getFloor(), 350, 100, floorWidth, floorHeight);
 
 	}
 

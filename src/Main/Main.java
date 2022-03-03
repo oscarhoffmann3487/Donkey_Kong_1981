@@ -5,9 +5,10 @@ import static constants.Constants.SCREEN_WIDTH;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import Graphics.*;
+import Level1.*;
 import Logic.GameFrame;
 import Logic.Model;
+import constants.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -17,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
 	public static void main(String[] args) {
 		launch(args);
 	}

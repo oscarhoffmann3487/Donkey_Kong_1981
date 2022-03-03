@@ -1,7 +1,7 @@
 package Logic;
 import java.io.FileNotFoundException;
 
-import Graphics.*;
+import Level1.*;
 
 import javafx.scene.layout.HBox;
 

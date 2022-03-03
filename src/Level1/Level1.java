@@ -1,19 +1,18 @@
-package States;
+package Level1;
 
-import static constants.Constants.SCREEN_HEIGHT;
+import static constants.Constants.SCREEN_HEIGHT; 
 import static constants.Constants.SCREEN_WIDTH;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Graphics.Barrels;
-import Graphics.DonkeyKong;
-import Graphics.Floor;
-import Graphics.Ladder;
-import Graphics.Mario;
-import Graphics.Pauline;
 import Logic.*;
+import States.GameOverMenu;
+import States.GameState;
+import States.HasWon;
+import States.Menu;
+import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,8 +32,15 @@ public class Level1 extends GameState {
 	private DonkeyKong donkeyKong;
 	private Pauline pauline;
 	private Ladder ladders;
+	private PaulinesItem purse;
+	private PaulinesItem hat;
+	private PaulinesItem umbrella;
+	private HasWon hasWon;
+	private Cape cape;
 	private int counter;
 	private ArrayList<Barrels> barrels;
+	private ArrayList<PaulinesItem> paulinesItem;
+	
 
 	public Level1(Model model) {
 		super(model);
@@ -42,13 +48,20 @@ public class Level1 extends GameState {
 		fontColor = Color.BLUE;
 		ladders = new Ladder(model);
 		floors = new Floor(model);
+		purse = new PaulinesItem(model);
+		hat = new PaulinesItem(model);
+		umbrella = new PaulinesItem(model);
 		donkeyKong = new DonkeyKong(model);
 		pauline = new Pauline(model);
+		hasWon = new HasWon(model);
+		cape = new Cape(model);
 		barrels = new ArrayList<>();
-
+		paulinesItem = new ArrayList<>();
+		paulinesItem.add(purse);
+		paulinesItem.add(umbrella);
+		paulinesItem.add(hat);
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
-
 	}
 
 	@Override
@@ -65,9 +78,23 @@ public class Level1 extends GameState {
 
 		// Mario
 		mario.drawMario(g);
+		
+		//Cape
+		cape.drawCape(g);
+
+		// Paulines Items
+		PaulinesItem();
+		for (PaulinesItem item : paulinesItem) {
+			if (item == purse) {
+				purse.drawPurse(g);
+			} else if (item == hat) {
+				hat.drawHat(g);
+			} else if (item == umbrella) {
+				umbrella.drawUmbrella(g);
+			}
+		}
 
 		// Barrels
-
 		for (Barrels barrel : barrels) {
 			barrel.drawBarrel(g);
 		}
@@ -79,6 +106,20 @@ public class Level1 extends GameState {
 		pauline.drawPauline(g);
 
 	}
+	
+	public void PaulinesItem() {
+		
+		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
+			//bonuspoäng
+			paulinesItem.remove(purse);
+		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
+			//bonuspoäng
+			paulinesItem.remove(hat);
+		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
+			//bonuspoäng
+			paulinesItem.remove(umbrella);
+		}
+	}
 
 	@Override
 	public void keyPressed(KeyEvent key) {
@@ -87,6 +128,7 @@ public class Level1 extends GameState {
 			model.switchState(new Menu(model));
 		} else {
 			mario.keyPressed(key);
+			
 		}
 	}
 
@@ -95,7 +137,9 @@ public class Level1 extends GameState {
 		counter += 1;
 		mario.update();
 		createBarrels();
-
+		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox())) {
+			model.switchState(hasWon);
+		}
 	}
 
 	public void createBarrels() {
@@ -120,6 +164,6 @@ public class Level1 extends GameState {
 		} else if (counter == 490) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 			counter = 0;
-	}
+		}
 	}
 }

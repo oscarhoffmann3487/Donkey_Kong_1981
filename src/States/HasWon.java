@@ -24,25 +24,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class GameOverMenu extends GameState {
+public class HasWon extends GameState {
 
 	private Color bgColor;
 	private Color fontColor1;
 	private Image donkeyLeft;
 	private Image donkeyRight;
 	
-	public GameOverMenu(Model model) {
+	public HasWon(Model model) {
 		super(model);
 		bgColor = Color.BLACK;
-		fontColor1 = Color.DARKBLUE;
-		
-		try {
-			donkeyLeft = new Image(new FileInputStream("donkeyLeft.png"));
-			donkeyRight = new Image(new FileInputStream("donkeyRight.png"));
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find image-files!");
-		}
-		
+		fontColor1 = Color.DARKBLUE;	
 	}
 	
 	
@@ -55,12 +47,14 @@ public class GameOverMenu extends GameState {
 		drawBg(g, bgColor);
 		g.setFill(fontColor1);
 		
-		g.drawImage(donkeyLeft, 170, 200, 80, 80);
-		g.drawImage(donkeyRight, 260, 198, 80, 80);
-	
+			
 		g.setFill(Color.RED);
-		g.setFont(new Font(70)); // Big letters
-		g.fillText("GAME OVER", 60, 150);
+		g.setFont(new Font(50)); // Big letters
+		g.fillText("YOU WON", 60, 150);
+		
+		g.setFill(Color.RED);
+		g.setFont(new Font(50)); // Big letters
+		g.fillText("YOUR SCORE: ", 60, 200);
 				
 		g.setFill(fontColor1);
 		g.fillRoundRect(100, 300, 300, 80, 30, 30);
@@ -79,7 +73,6 @@ public class GameOverMenu extends GameState {
 			if(event.getX() <= 400 && event.getX() >= 100 && event.getY() >=300 && event.getY() <=380 ) {
 					model.switchState(new Menu(model));
 			}
-		
 		});
 	
 	}
@@ -91,3 +84,4 @@ public class GameOverMenu extends GameState {
 	}
 	
 }
+
