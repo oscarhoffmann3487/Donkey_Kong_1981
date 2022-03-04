@@ -150,11 +150,13 @@ public class Level1 extends GameState {
 		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
 			counter2 = 0;
 		}
+		
 	}
 
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
 			barrel.update();
+			
 			if (counter2 > 0 && counter2 < 400) {
 				if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				}
@@ -162,6 +164,19 @@ public class Level1 extends GameState {
 				model.switchState(new GameOverMenu(model));
 			}
 		}
+		
+		if(counter > 90 && counter < 110){
+			donkeyKong.setMovement("pickUp");
+		} else if (counter > 160 && counter < 190) {
+			donkeyKong.setMovement("pickUp");
+		} else if (counter > 240 && counter < 270) {
+			donkeyKong.setMovement("pickUp");
+		} else if (counter > 290 && counter < 320) {
+			donkeyKong.setMovement("pickUp");
+		}else {
+			donkeyKong.setMovement("stand");
+		}
+		
 		if (counter == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 

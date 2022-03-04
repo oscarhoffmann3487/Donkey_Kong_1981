@@ -12,16 +12,20 @@ public class DonkeyKong {
 	private double y = 115.0;
 	private Rectangle2D donkeyKongBoundingBox;
 	private Animation animation;
+	private String movement;
 	
 	
 	public DonkeyKong(Model model) {
-			
 			setDonkeyKongBoundingBox(new Rectangle2D(x, y, 60.0, 60.0));
 			animation = new Animation(model);
 		}
 	
 	public void drawDonkeyKong(GraphicsContext g) {
-		g.drawImage(animation.getDonkeyKongAndBarrel(), x, y, 60.0, 60.0);
+		if (movement == "pickUp") {
+			g.drawImage(animation.getDonkeyKongPickUpLeft(), x, y, 60.0, 60.0);
+		}else {
+			g.drawImage(animation.getDonkeyKongAndBarrel(), x, y, 60.0, 60.0);
+		}
 		
 	}
 
@@ -31,5 +35,13 @@ public class DonkeyKong {
 
 	public void setDonkeyKongBoundingBox(Rectangle2D donkeyKongBoundingBox) {
 		this.donkeyKongBoundingBox = donkeyKongBoundingBox;
+	}
+
+	public String getMovement() {
+		return movement;
+	}
+
+	public void setMovement(String movement) {
+		this.movement = movement;
 	}
 }

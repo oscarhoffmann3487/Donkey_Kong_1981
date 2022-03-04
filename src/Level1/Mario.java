@@ -38,7 +38,6 @@ public class Mario {
 		this.ladders = ladderBoundaries;
 		this.donkeyKong = donkeyKong;
 		this.model = model;
-		this.direction = direction;
 		animation = new Animation(model);
 
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);

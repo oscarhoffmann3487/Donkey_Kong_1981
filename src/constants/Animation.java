@@ -20,6 +20,7 @@ public class Animation {
 	private Image score200;
 	private Image score300;
 	private Image marioClimb;
+	private Image donkeyKongPickUpLeft;
 	
 	public Image getPurse() {
 		return purse;
@@ -51,6 +52,7 @@ public class Animation {
 			ladder = new Image(new FileInputStream("ladder1.png"));
 			barrel = new Image(new FileInputStream("barrel.png"));
 			cape = new Image(new FileInputStream("Images/cape.png"));
+			donkeyKongPickUpLeft = new Image(new FileInputStream("Images/DonkeyKong/DonkeyKongPickUpLeft.png"));
 			score100 = new Image(new FileInputStream("Images/Scores/Score100.png"));
 			score200 = new Image(new FileInputStream("Images/Scores/Score200.png"));
 			score300 = new Image(new FileInputStream("Images/Scores/Score300.png"));
@@ -106,5 +108,9 @@ public class Animation {
 
 	public Image getMarioClimb() {
 		return marioClimb;
+	}
+
+	public Image getDonkeyKongPickUpLeft() {
+		return donkeyKongPickUpLeft;
 	}
 }
