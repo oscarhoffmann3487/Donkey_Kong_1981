@@ -17,22 +17,24 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 public class Level1 extends GameState {
-
+	
 	private Color bgColor;
 	private Color fontColor;
-	private Mario mario;
 	private Floor floors;
+	private Ladder ladders;	
+	private int barrelTimer;
+	private Barrels barrel;
+	private Mario mario;
 	private DonkeyKong donkeyKong;
 	private Pauline pauline;
-	private Ladder ladders;
 	private PaulinesItem purse;
 	private PaulinesItem hat;
 	private PaulinesItem umbrella;
 	private HasWon hasWon;
 	private Cape cape;
 	private Animation animation;
-	private int counter;
-	private int counter2 = 400;
+	private int scoreScale = 40;
+	private int capeTimer = 400;
 	private ArrayList<Barrels> barrels;
 	private ArrayList<Cape> capes;
 	private ArrayList<PaulinesItem> paulinesItem;
@@ -52,6 +54,7 @@ public class Level1 extends GameState {
 		hasWon = new HasWon(model);
 		cape = new Cape(model);
 		animation = new Animation(model);
+		this.barrel = new Barrels(model, null);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
 		mariosItem = new ArrayList<>();
@@ -60,22 +63,24 @@ public class Level1 extends GameState {
 		paulinesItem.add(umbrella);
 		paulinesItem.add(hat);
 		capes.add(cape);
+		
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 	}
 
 	@Override
 	public void draw(GraphicsContext g) throws FileNotFoundException {
-		// Ritar ut den svarta bakgrundsfÃ¤rgen
+		// Background
 		drawBg(g, bgColor);
 		g.setFill(fontColor);
 
-		// Stegar
+		// Ladders
 		ladders.drawLadder(g);
-		// Golven
+		// Floor
 		floors.drawFloor(g);
 		// Mario
 		mario.drawMario(g);
+		
 		// Cape
 		Cape();
 		for (Cape c : capes) {
@@ -83,8 +88,26 @@ public class Level1 extends GameState {
 				cape.drawCape(g);
 			}
 		}
+		
 		// Paulines Items
 		PaulinesItem(g);
+		
+		// Barrels
+		for (Barrels barrel : barrels) {
+			barrel.drawBarrel(g);
+		}
+		
+		//BarrelStack
+		barrel.drawBarrelStack(g);
+		
+		// DonkeyKong
+		donkeyKong.drawDonkeyKong(g);
+		// Pauline
+		pauline.drawPauline(g);
+	}
+
+	public void PaulinesItem(GraphicsContext g) {
+		
 		for (PaulinesItem item : paulinesItem) {
 			if (item == purse) {
 				purse.drawPurse(g);
@@ -94,28 +117,18 @@ public class Level1 extends GameState {
 				umbrella.drawUmbrella(g);
 			}
 		}
-		// Barrels
-		for (Barrels barrel : barrels) {
-			barrel.drawBarrel(g);
-		}
-		// DonkeyKong
-		donkeyKong.drawDonkeyKong(g);
-		// Pauline
-		pauline.drawPauline(g);
-	}
-
-	public void PaulinesItem(GraphicsContext g) {
+		
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
 			// metod som skickar vidare poäng till highscore-klassen
-			g.drawImage(animation.getScore300(), 430.0, 215.0, 25.0, 25.0);
+			g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
 			paulinesItem.remove(purse);
 			mariosItem.add(purse);
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
-			g.drawImage(animation.getScore200(), 30.0, 320.0, 25.0, 25.0);
+			g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
 			paulinesItem.remove(hat);
 			mariosItem.add(hat);
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
-			g.drawImage(animation.getScore100(), 440.0, 405.0, 25.0, 25.0);
+			g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
 			paulinesItem.remove(umbrella);
 			mariosItem.add(umbrella);
 		}
@@ -139,8 +152,8 @@ public class Level1 extends GameState {
 
 	@Override
 	public void update() {
-		counter += 1;
-		counter2 += 1;
+		barrelTimer += 1;
+		capeTimer += 1;
 		mario.update();
 		createBarrels();
 		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
@@ -148,7 +161,7 @@ public class Level1 extends GameState {
 			model.switchState(hasWon);
 		}
 		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
-			counter2 = 0;
+			capeTimer = 0;
 		}
 		
 	}
@@ -157,41 +170,44 @@ public class Level1 extends GameState {
 		for (Barrels barrel : barrels) {
 			barrel.update();
 			
-			if (counter2 > 0 && counter2 < 400) {
+			if (capeTimer > 0 && capeTimer < 400) {
 				if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				}
-			} else if (counter > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+			} else if (capeTimer > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				model.switchState(new GameOverMenu(model));
 			}
 		}
 		
-		if(counter > 90 && counter < 110){
+		if(barrelTimer > 90 && barrelTimer < 110){
 			donkeyKong.setMovement("pickUp");
-		} else if (counter > 160 && counter < 190) {
+		} else if (barrelTimer > 160 && barrelTimer < 190) {
 			donkeyKong.setMovement("pickUp");
-		} else if (counter > 240 && counter < 270) {
+		} else if (barrelTimer > 240 && barrelTimer < 270) {
 			donkeyKong.setMovement("pickUp");
-		} else if (counter > 290 && counter < 320) {
+		} else if (barrelTimer > 290 && barrelTimer < 320) {
 			donkeyKong.setMovement("pickUp");
+		}else if (barrelTimer > 480 && barrelTimer < 510) {
+				donkeyKong.setMovement("pickUp");
 		}else {
 			donkeyKong.setMovement("stand");
 		}
 		
-		if (counter == 100) {
+		//Lägger till nya barrels i listan med ett visst tidsintervall
+		if (barrelTimer == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 
-		} else if (counter == 170) {
+		} else if (barrelTimer == 170) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 
-		} else if (counter == 250) {
+		} else if (barrelTimer == 250) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 
-		} else if (counter == 300) {
+		} else if (barrelTimer == 300) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 
-		} else if (counter == 490) {
+		} else if (barrelTimer == 490) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
-			counter = 0;
+			barrelTimer = 0;
 		}
 	}
 }

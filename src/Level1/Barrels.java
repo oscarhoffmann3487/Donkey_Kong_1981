@@ -34,6 +34,10 @@ public class Barrels {
 	public void drawBarrel(GraphicsContext g) {
 		g.drawImage(animation.getBarrel(), x, y, scale, scale);
 	}
+	
+	public void drawBarrelStack(GraphicsContext g) {
+		g.drawImage(animation.getBarrelStack(), 0, 115, 50, 50);
+	}
 		
 	public boolean barrelFloorRight() {
 		if (barrelBoundingBox.intersects(floors.get(1))) {

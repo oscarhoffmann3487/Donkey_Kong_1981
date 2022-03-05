@@ -21,19 +21,7 @@ public class Animation {
 	private Image score300;
 	private Image marioClimb;
 	private Image donkeyKongPickUpLeft;
-	
-	public Image getPurse() {
-		return purse;
-	}
-
-	public Image getHat() {
-		return hat;
-	}
-
-	public Image getUmbrella() {
-		return umbrella;
-	}
-
+	private Image barrelStack;
 	private Image hat;
 	private Image umbrella; 
 	
@@ -51,6 +39,7 @@ public class Animation {
 			floor = new Image(new FileInputStream("floor.png"));
 			ladder = new Image(new FileInputStream("ladder1.png"));
 			barrel = new Image(new FileInputStream("barrel.png"));
+			barrelStack = new Image(new FileInputStream("Images/Barrels/Barrelstack.png"));
 			cape = new Image(new FileInputStream("Images/cape.png"));
 			donkeyKongPickUpLeft = new Image(new FileInputStream("Images/DonkeyKong/DonkeyKongPickUpLeft.png"));
 			score100 = new Image(new FileInputStream("Images/Scores/Score100.png"));
@@ -60,6 +49,18 @@ public class Animation {
 			System.out.println("Unable to find image-files!");
 		}
 
+	}
+	
+	public Image getPurse() {
+		return purse;
+	}
+
+	public Image getHat() {
+		return hat;
+	}
+
+	public Image getUmbrella() {
+		return umbrella;
 	}
 
 	public Image getMarioStandRight() {
@@ -112,5 +113,9 @@ public class Animation {
 
 	public Image getDonkeyKongPickUpLeft() {
 		return donkeyKongPickUpLeft;
+	}
+
+	public Image getBarrelStack() {
+		return barrelStack;
 	}
 }

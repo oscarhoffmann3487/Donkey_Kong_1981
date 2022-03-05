@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 import Logic.GameFrame;
 import Logic.Model;
-
+import constants.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
