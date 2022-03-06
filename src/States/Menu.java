@@ -87,7 +87,7 @@ public class Menu extends GameState {
 		
 		g.getCanvas().setOnMouseClicked(event -> {
 			if(event.getX() <= 360 && event.getX() >= 150 && event.getY() >= 360 && event.getY() <= 420 ) {
-					model.switchState(level1);
+					model.switchState(level2);
 			}else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 430 && event.getY() <= 490 ) {
 				model.switchState(highScore);			
 			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <= 560 ) {

@@ -12,7 +12,7 @@ public class PaulinesItem2 {
 
 	public PaulinesItem2(Model model) {
 		purseBoundingBox = new Rectangle2D(220.0, 235.0, 25.0, 25.0);
-		hatBoundingBox = new Rectangle2D(120.0, 342.0, 40.0, 40.0);
+		hatBoundingBox = new Rectangle2D(140.0, 342.0, 40.0, 40.0);
 		umbrellaBoundingBox = new Rectangle2D(340.0, 435.0, 35.0, 35.0);
 		animation = new Animation(model);
 
@@ -31,7 +31,7 @@ public class PaulinesItem2 {
 	}
 	
 	public void drawHat(GraphicsContext g) {	
-		 g.drawImage(animation.getHat(), 120.0, 342.0, 40.0, 40.0);
+		 g.drawImage(animation.getHat(), 140.0, 342.0, 40.0, 40.0);
 	}
 	
 	public void drawUmbrella(GraphicsContext g) {
