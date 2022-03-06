@@ -19,6 +19,18 @@ public class PaulinesItem {
 
 	}
 
+	public void setUmbrellaBoundingBox(Rectangle2D umbrellaBoundingBox) {
+		this.umbrellaBoundingBox = umbrellaBoundingBox;
+	}
+
+	public void setHatBoundingBox(Rectangle2D hatBoundingBox) {
+		this.hatBoundingBox = hatBoundingBox;
+	}
+
+	public void setPurseBoundingBox(Rectangle2D purseBoundingBox) {
+		this.purseBoundingBox = purseBoundingBox;
+	}
+
 	public Rectangle2D getPurseBoundingBox() {
 		return purseBoundingBox;
 	}

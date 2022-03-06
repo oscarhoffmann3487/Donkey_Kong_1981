@@ -28,9 +28,13 @@ public class Animation {
 	private Image bonus;
 	private Image floor2;
 	private Image ladder2;
+	private Image donkeyLeft;
+	private Image donkeyRight;
 
 	public Animation(Model model) {
 		try {
+			donkeyLeft = new Image(new FileInputStream("donkeyLeft.png"));
+			donkeyRight = new Image(new FileInputStream("donkeyRight.png"));
 			bonus = new Image(new FileInputStream("Images/Bonus.png")); 
 			menuImage = new Image(new FileInputStream("Images/donkeyKong.png"));
 			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
@@ -59,6 +63,16 @@ public class Animation {
 	}
 
 	
+	public Image getDonkeyRight() {
+		return donkeyRight;
+	}
+
+
+	public Image getDonkeyLeft() {
+		return donkeyLeft;
+	}
+
+
 	public Image getBonus() {
 		return bonus;
 	}

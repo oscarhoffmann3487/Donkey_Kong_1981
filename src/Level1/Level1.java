@@ -128,24 +128,27 @@ public class Level1 extends GameState {
 		}
 
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
-			// metod som skickar vidare po�ng till highscore-klassen
 			g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
 			paulinesItem.remove(purse);
 			mariosItem.add(purse);
+			purse.setPurseBoundingBox(null);
 			score += bonus*300;
-			System.out.println(score);
+			
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
 			g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
 			paulinesItem.remove(hat);
 			mariosItem.add(hat);
+			hat.setHatBoundingBox(null);
+			
 			score += bonus*200;
-			System.out.println(score);
+		
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
 			g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
 			paulinesItem.remove(umbrella);
 			mariosItem.add(umbrella);
+			umbrella.setUmbrellaBoundingBox(null);
 			score += bonus*100;
-			System.out.println(score);
+		
 		}
 	}
 
@@ -195,7 +198,7 @@ public class Level1 extends GameState {
 	public void bonusSystem() {
 
 		if (bonus >= 0) {
-			if (bonusTimer == 150) {
+			if (bonusTimer == 100) {
 				bonus -= 10;
 				bonusTimer = 0;
 			}
