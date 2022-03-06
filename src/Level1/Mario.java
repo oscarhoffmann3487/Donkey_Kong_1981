@@ -22,7 +22,6 @@ public class Mario {
 	private double speed = 8.0;
 	private double climbingSpeed = 5.0;
 	private double gravity = 2.0;
-	private double jumpHeight = 50;
 	private double scale = 30;
 	private Rectangle2D marioBoundingBox;
 	private Rectangle2D donkeyKong;
@@ -63,19 +62,19 @@ public class Mario {
 			}
 			// Hoppa
 		} else if (key.getCode() == KeyCode.SPACE) {
-			if (onFloor()) {
+			if (onFloor() && !ladderCollision()) {
 				jumping = true;
 			}
 			// Klättra uppåt
 		} else if (key.getCode() == KeyCode.W) {
-			direction = "climb";
 			if (ladderCollision()) {
+				direction = "climb";
 				y -= climbingSpeed;
 			}
 			// klättra nedåt
 		} else if (key.getCode() == KeyCode.S) {
-			direction = "climb";
 			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
+				direction = "climb";
 				y += climbingSpeed;
 			}
 		}

@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Pauline2 {
 	private double x = 240.0;
-	private double y = 55.0;
+	private double y = 40.0;
 	private Animation animation;
 	private Rectangle2D paulineBoundingBox;
 	
