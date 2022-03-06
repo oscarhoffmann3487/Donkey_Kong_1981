@@ -7,6 +7,7 @@ import Logic.Model;
 import javafx.scene.image.Image;
 
 public class Animation {
+	private Image menuImage;
 	private Image marioStandRight;
 	private Image marioStandLeft;
 	private Image purse;
@@ -24,10 +25,13 @@ public class Animation {
 	private Image barrelStack;
 	private Image hat;
 	private Image umbrella; 
+	private Image bonus;
 	
 
 	public Animation(Model model) {
 		try {
+			bonus = new Image(new FileInputStream("Images/Bonus.png")); 
+			menuImage = new Image(new FileInputStream("Images/donkeyKong.png"));
 			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
 			marioStandLeft = new Image(new FileInputStream("Images/Mario/left/MarioRun1Left.png"));
 			marioClimb = new Image(new FileInputStream("Images/Mario/MarioClimb.png"));
@@ -50,7 +54,18 @@ public class Animation {
 		}
 
 	}
+
 	
+	public Image getBonus() {
+		return bonus;
+	}
+
+
+	public Image getMenuImage() {
+		return menuImage;
+	}
+
+
 	public Image getPurse() {
 		return purse;
 	}

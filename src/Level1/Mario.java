@@ -87,7 +87,7 @@ public class Mario {
 			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
 		} else if (direction == "left") {
 			g.drawImage(animation.getMarioStandLeft(), x, y, scale, scale);
-		} else if (direction == "climb") {
+		} else if (direction == "climb" && ladderCollision()) {
 			g.drawImage(animation.getMarioClimb(), x, y, scale, scale);
 		} else {
 			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
