@@ -15,13 +15,14 @@ import javafx.scene.input.KeyEvent;
 import static constants.Constants.SCREEN_WIDTH;
 
 public class Mario {
-
+	private int counter = 0;
+	private boolean jumping = false;
 	private double x = 10.0;
 	private double y = 625.0;
 	private double speed = 8.0;
 	private double climbingSpeed = 5.0;
 	private double gravity = 2.0;
-	private double jumpHeight = 40;
+	private double jumpHeight = 50;
 	private double scale = 30;
 	private Rectangle2D marioBoundingBox;
 	private Rectangle2D donkeyKong;
@@ -42,7 +43,6 @@ public class Mario {
 
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
 	}
-	
 
 	public void keyPressed(KeyEvent key) {
 		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
@@ -64,7 +64,7 @@ public class Mario {
 			// Hoppa
 		} else if (key.getCode() == KeyCode.SPACE) {
 			if (onFloor()) {
-				y -= jumpHeight;
+				jumping = true;
 			}
 			// Klättra uppåt
 		} else if (key.getCode() == KeyCode.W) {
@@ -81,26 +81,39 @@ public class Mario {
 		}
 	}
 
-
 	public void drawMario(GraphicsContext g) {
 		if (direction == "right") {
 			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
 		} else if (direction == "left") {
 			g.drawImage(animation.getMarioStandLeft(), x, y, scale, scale);
-		} else if (direction == "climb") {
+		} else if (direction == "climb" && ladderCollision()) {
 			g.drawImage(animation.getMarioClimb(), x, y, scale, scale);
 		} else {
 			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
 		}
-		
+
 	}
-	
 
 	public void update() {
 		gravity(ladderCollision(), onFloor());
 		marioDonkeyKongCollision();
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
 		marioSpecificLadderAndFloor();
+		counter();
+	}
+
+	public void counter() {
+
+		if (jumping == true) {
+			counter += 1;
+			if (counter < 13) {
+				y -= 6;
+
+			} else {
+				counter = 0;
+				jumping = false;
+			}
+		}
 
 	}
 

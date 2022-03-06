@@ -1,16 +1,12 @@
 package States;
 
-import java.io.File;
-import java.io.FileInputStream;
-
 import java.io.FileNotFoundException;
 
 import Level1.Level1;
 import Level2.Level2;
 import Logic.*;
-
+import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
@@ -27,37 +23,27 @@ public class Menu extends GameState {
 	private GameOverMenu gameOverMenu;
 	private HighScore highScore;
 	private Color bgColor;
-	private Color fontColor1;
-	private Color fontColor2;
-	private Image menuImage;
-	private Image donkeyKong;
+	private Color fontColor;
 	private AudioClip introSong;
+	private Animation animation;
 
 	public Menu(Model model) {
 		super(model);
 		bgColor = Color.BLACK;
-		fontColor1 = Color.WHITE;
-		fontColor2 = Color.RED;
+		fontColor = Color.WHITE;
 		level1 = new Level1(model);
 		help = new Help(model);
 		level2 = new Level2(model);
 		highScore = new HighScore(model);
-		
+		animation = new Animation(model);
 		gameOverMenu = new GameOverMenu(model);
 					
-		try {
-			menuImage = new Image(new FileInputStream("donkeyKong.png"));
-			donkeyKong = new Image(new FileInputStream("donkeyCenter.png"));
-
-		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find image-files!");
-		}
 	}
 
 	@Override
 	public void draw(GraphicsContext g) throws FileNotFoundException {
 		drawBg(g, bgColor);
-		g.setFill(fontColor1);
+		g.setFill(fontColor);
 		
 		
 		g.setFill(Color.DARKBLUE);
@@ -71,7 +57,6 @@ public class Menu extends GameState {
 		g.setFill(Color.WHITE);
 		g.setFont(new Font(25));
 		g.fillText("HIGHSCORE", 185, 470);
-		
 		
 		g.setFill(Color.DARKBLUE);
 		g.fillRoundRect(150.0, 500.0, 200.0, 60.0, 30.0, 30.0);
@@ -98,10 +83,7 @@ public class Menu extends GameState {
 		
 		});
 	
-		g.drawImage(menuImage, 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
-		
-		
-	//	g.drawImage(donkeyKong, SCREEN_WIDTH / 2 - 50, 580, 80, 80);
+		g.drawImage(animation.getMenuImage(), 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
 	
 	}
 
@@ -121,7 +103,6 @@ public class Menu extends GameState {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 
 	}
 

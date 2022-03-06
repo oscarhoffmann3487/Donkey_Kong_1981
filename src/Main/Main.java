@@ -29,7 +29,7 @@ public class Main extends Application {
 		Model model = new Model();
 		GameFrame frame = new GameFrame(model, SCREEN_WIDTH, SCREEN_HEIGHT);
 		Scene gameScene = new Scene(frame);
-
+		
 		final double targetFps = 50.0;
 
 		final double nanoPerUpdate = 1000000000.0 / targetFps;

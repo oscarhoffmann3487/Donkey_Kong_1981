@@ -48,14 +48,13 @@ public class Help extends GameState{
 		g.fillText("Move around by using the keys A, D, W, S.", 20, 400);
 		g.fillText("You can jump by using spacebar.", 20, 440);
 		g.fillText("Watch out for barrels and Donkey Kong.", 20, 480);
-		g.fillText("Collect all of Pauline´s items, the faster the better.", 20, 520);
+		g.fillText("Collect all of Paulineï¿½s items, the faster the better.", 20, 520);
 		g.fillText("Press \"b\" to go back to main menu.", 20, 560);
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent key) {
-			System.out.println("Trycker pÃ¥ " + key.getCode() + " i PlayState");
 
 			if (key.getCode() == KeyCode.B)
 				model.switchState(new Menu(model));

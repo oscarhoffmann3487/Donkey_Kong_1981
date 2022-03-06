@@ -13,10 +13,10 @@ package constants;
  */
 public interface Constants {
 
+
 	/*
 	 * Define the size of the window
 	 */
 	int SCREEN_WIDTH = 500;
 	int SCREEN_HEIGHT = 700;
 }
-

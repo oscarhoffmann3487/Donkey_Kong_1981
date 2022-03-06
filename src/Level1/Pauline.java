@@ -15,7 +15,7 @@ public class Pauline {
 	
 	public Pauline(Model model) {
 			animation = new Animation(model);
-			setPaulineBoundingBox(new Rectangle2D(x, y, 30.0, 30.0));
+			paulineBoundingBox = new Rectangle2D(x, y, 30.0, 30.0);
 			
 		}
 	
@@ -27,7 +27,4 @@ public class Pauline {
 		return paulineBoundingBox;
 	}
 
-	public void setPaulineBoundingBox(Rectangle2D paulineBoundingBox) {
-		this.paulineBoundingBox = paulineBoundingBox;
-	}
 }

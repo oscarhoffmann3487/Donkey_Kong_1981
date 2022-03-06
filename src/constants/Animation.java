@@ -7,6 +7,7 @@ import Logic.Model;
 import javafx.scene.image.Image;
 
 public class Animation {
+	private Image menuImage;
 	private Image marioStandRight;
 	private Image marioStandLeft;
 	private Image purse;
@@ -24,12 +25,18 @@ public class Animation {
 	private Image barrelStack;
 	private Image hat;
 	private Image umbrella; 
+	private Image bonus;
 	private Image floor2;
 	private Image ladder2;
-	
+	private Image donkeyLeft;
+	private Image donkeyRight;
 
 	public Animation(Model model) {
 		try {
+			donkeyLeft = new Image(new FileInputStream("donkeyLeft.png"));
+			donkeyRight = new Image(new FileInputStream("donkeyRight.png"));
+			bonus = new Image(new FileInputStream("Images/Bonus.png")); 
+			menuImage = new Image(new FileInputStream("Images/donkeyKong.png"));
 			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
 			marioStandLeft = new Image(new FileInputStream("Images/Mario/left/MarioRun1Left.png"));
 			marioClimb = new Image(new FileInputStream("Images/Mario/MarioClimb.png"));
@@ -47,7 +54,6 @@ public class Animation {
 			score100 = new Image(new FileInputStream("Images/Scores/Score100.png"));
 			score200 = new Image(new FileInputStream("Images/Scores/Score200.png"));
 			score300 = new Image(new FileInputStream("Images/Scores/Score300.png"));
-			
 			floor2 = new Image(new FileInputStream("Images/Level2/floor.png"));
 			ladder2 = new Image(new FileInputStream("Images/Level2/ladder.png"));
 		} catch (FileNotFoundException e) {
@@ -55,7 +61,28 @@ public class Animation {
 		}
 
 	}
+
 	
+	public Image getDonkeyRight() {
+		return donkeyRight;
+	}
+
+
+	public Image getDonkeyLeft() {
+		return donkeyLeft;
+	}
+
+
+	public Image getBonus() {
+		return bonus;
+	}
+
+
+	public Image getMenuImage() {
+		return menuImage;
+	}
+
+
 	public Image getPurse() {
 		return purse;
 	}

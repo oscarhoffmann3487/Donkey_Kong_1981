@@ -47,13 +47,6 @@ public class Floor {
 		int floorWidth = 300;
 		g.setFill(Color.WHITE);
 		
-		/*
-		 * g.fillRect(0.0, 655.0, 500.0, 15.0); g.fillRect(0.0, 555.0, 400.0, 15.0);
-		 * g.fillRect(100.0, 455.0, 400.0, 15.0); g.fillRect(0.0, 355.0, 300.0, 15.0);
-		 * g.fillRect(100.0, 255.0, 400.0, 15.0); g.fillRect(0.0, 155.0, 400.0, 15.0);
-		 * g.fillRect(350.0, 100.0, 150.0, 15.0);
-		 */
-		
 		// Floor0
 		g.drawImage(animation.getFloor(), 0, 655, floorWidth, floorHeight);
 		g.drawImage(animation.getFloor(), 250, 655, floorWidth, floorHeight);

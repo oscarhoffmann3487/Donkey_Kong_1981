@@ -18,11 +18,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 public class Level1 extends GameState {
-	
+
 	private Color bgColor;
 	private Color fontColor;
 	private Floor floors;
-	private Ladder ladders;	
+	private Ladder ladders;
 	private int barrelTimer;
 	private Barrels barrel;
 	private Mario mario;
@@ -36,6 +36,9 @@ public class Level1 extends GameState {
 	private Animation animation;
 	private int scoreScale = 40;
 	private int capeTimer = 400;
+	private int score = 0;
+	private int bonus = 500;
+	private int bonusTimer = 0;
 	private ArrayList<Barrels> barrels;
 	private ArrayList<Cape> capes;
 	private ArrayList<PaulinesItem> paulinesItem;
@@ -64,7 +67,7 @@ public class Level1 extends GameState {
 		paulinesItem.add(umbrella);
 		paulinesItem.add(hat);
 		capes.add(cape);
-		
+
 		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
 				ladders.getladderBoundaries());
 	}
@@ -81,34 +84,39 @@ public class Level1 extends GameState {
 		floors.drawFloor(g);
 		// Mario
 		mario.drawMario(g);
-		
+
 		// Cape
 		Cape();
-		for (Cape c : capes) {
-			if (c == cape) {
-				cape.drawCape(g);
+		if(capes.contains(cape)) {
+		cape.drawCape(g);
 			}
-		}
-		
+	
+
 		// Paulines Items
 		PaulinesItem(g);
-		
+
 		// Barrels
 		for (Barrels barrel : barrels) {
 			barrel.drawBarrel(g);
 		}
-		
-		//BarrelStack
+
+		// BarrelStack
 		barrel.drawBarrelStack(g);
-		
+
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
 		// Pauline
 		pauline.drawPauline(g);
+		
+		//BonusLevel
+		g.drawImage(animation.getBonus(), 100, 50, 100, 100);
+		g.setFill(Color.RED);
+		g.fillText(String.valueOf(bonus), 100, 50);
+		g.fillText(String.valueOf(score), 200, 50);
 	}
 
 	public void PaulinesItem(GraphicsContext g) {
-		
+
 		for (PaulinesItem item : paulinesItem) {
 			if (item == purse) {
 				purse.drawPurse(g);
@@ -118,20 +126,29 @@ public class Level1 extends GameState {
 				umbrella.drawUmbrella(g);
 			}
 		}
-		
+
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
-			// metod som skickar vidare poäng till highscore-klassen
 			g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
 			paulinesItem.remove(purse);
 			mariosItem.add(purse);
+			purse.setPurseBoundingBox(null);
+			score += bonus*300;
+			
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
 			g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
 			paulinesItem.remove(hat);
 			mariosItem.add(hat);
+			hat.setHatBoundingBox(null);
+			
+			score += bonus*200;
+		
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
 			g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
 			paulinesItem.remove(umbrella);
 			mariosItem.add(umbrella);
+			umbrella.setUmbrellaBoundingBox(null);
+			score += bonus*100;
+		
 		}
 	}
 
@@ -154,32 +171,51 @@ public class Level1 extends GameState {
 	@Override
 	public void update() {
 		barrelTimer += 1;
-		capeTimer += 1;
+		bonusTimer += 1;
 		mario.update();
 		createBarrels();
+		hasWonLevel();
+		bonusSystem();
+		initiateCapteTimer();
+
+	}
+
+	public void initiateCapteTimer() {
+		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
+			capeTimer = 0;
+		} else {
+			capeTimer += 1;
+		}
+	}
+
+	public void hasWonLevel() {
 		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
 			model.switchState(level2);
 		}
-		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
-			capeTimer = 0;
+	}
+
+	public void bonusSystem() {
+
+		if (bonus >= 0) {
+			if (bonusTimer == 100) {
+				bonus -= 10;
+				bonusTimer = 0;
+			}
 		}
-		
+
 	}
 
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
 			barrel.update();
-			
-			if (capeTimer > 0 && capeTimer < 400) {
-				if (barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
-				}
-			} else if (capeTimer > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+
+			if (capeTimer > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
 				model.switchState(new GameOverMenu(model));
 			}
 		}
-		
-		if(barrelTimer > 90 && barrelTimer < 110){
+
+		if (barrelTimer > 90 && barrelTimer < 110) {
 			donkeyKong.setMovement("pickUp");
 		} else if (barrelTimer > 160 && barrelTimer < 190) {
 			donkeyKong.setMovement("pickUp");
@@ -187,13 +223,13 @@ public class Level1 extends GameState {
 			donkeyKong.setMovement("pickUp");
 		} else if (barrelTimer > 290 && barrelTimer < 320) {
 			donkeyKong.setMovement("pickUp");
-		}else if (barrelTimer > 480 && barrelTimer < 510) {
-				donkeyKong.setMovement("pickUp");
-		}else {
+		} else if (barrelTimer > 480 && barrelTimer < 510) {
+			donkeyKong.setMovement("pickUp");
+		} else {
 			donkeyKong.setMovement("stand");
 		}
-		
-		//Lägger till nya barrels i listan med ett visst tidsintervall
+
+		// Lï¿½gger till nya barrels i listan med ett visst tidsintervall
 		if (barrelTimer == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 
