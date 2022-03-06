@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import Level1.Level1;
+import Level2.Level2;
 import Logic.*;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +22,7 @@ import static constants.Constants.SCREEN_WIDTH;
 public class Menu extends GameState {
 
 	private Level1 level1;
+	private Level2 level2;
 	private Help help;
 	private GameOverMenu gameOverMenu;
 	private HighScore highScore;
@@ -38,6 +40,7 @@ public class Menu extends GameState {
 		fontColor2 = Color.RED;
 		level1 = new Level1(model);
 		help = new Help(model);
+		level2 = new Level2(model);
 		highScore = new HighScore(model);
 		
 		gameOverMenu = new GameOverMenu(model);
