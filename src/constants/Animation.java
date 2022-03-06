@@ -26,7 +26,8 @@ public class Animation {
 	private Image hat;
 	private Image umbrella; 
 	private Image bonus;
-	
+	private Image floor2;
+	private Image ladder2;
 
 	public Animation(Model model) {
 		try {
@@ -49,6 +50,8 @@ public class Animation {
 			score100 = new Image(new FileInputStream("Images/Scores/Score100.png"));
 			score200 = new Image(new FileInputStream("Images/Scores/Score200.png"));
 			score300 = new Image(new FileInputStream("Images/Scores/Score300.png"));
+			floor2 = new Image(new FileInputStream("Images/Level2/floor.png"));
+			ladder2 = new Image(new FileInputStream("Images/Level2/ladder.png"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
@@ -132,5 +135,13 @@ public class Animation {
 
 	public Image getBarrelStack() {
 		return barrelStack;
+	}
+
+	public Image getFloor2() {
+		return floor2;
+	}
+
+	public Image getLadder2() {
+		return ladder2;
 	}
 }

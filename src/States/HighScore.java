@@ -31,7 +31,8 @@ public class HighScore extends GameState {
 
 	@Override
 	public void keyPressed(KeyEvent key) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+	
 	}
 	
 	

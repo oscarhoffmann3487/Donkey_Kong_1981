@@ -3,6 +3,7 @@ package Level1;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import Level2.Level2;
 import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
@@ -30,7 +31,7 @@ public class Level1 extends GameState {
 	private PaulinesItem purse;
 	private PaulinesItem hat;
 	private PaulinesItem umbrella;
-	private HasWon hasWon;
+	private Level2 level2;
 	private Cape cape;
 	private Animation animation;
 	private int scoreScale = 40;
@@ -45,6 +46,7 @@ public class Level1 extends GameState {
 
 	public Level1(Model model) {
 		super(model);
+		level2 = new Level2(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
 		ladders = new Ladder(model);
@@ -54,7 +56,6 @@ public class Level1 extends GameState {
 		umbrella = new PaulinesItem(model);
 		donkeyKong = new DonkeyKong(model);
 		pauline = new Pauline(model);
-		hasWon = new HasWon(model);
 		cape = new Cape(model);
 		animation = new Animation(model);
 		this.barrel = new Barrels(model, null);
@@ -187,7 +188,7 @@ public class Level1 extends GameState {
 	public void hasWonLevel() {
 		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
-			model.switchState(hasWon);
+			model.switchState(level2);
 		}
 	}
 
