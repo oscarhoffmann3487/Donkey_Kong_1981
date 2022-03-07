@@ -2,18 +2,23 @@ package Level1;
 
 import java.util.ArrayList;
 
+import Level2.Level2;
 import Logic.Model;
 import States.GameOverMenu;
 import constants.Animation;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import static constants.Constants.SCREEN_WIDTH;
 
+/**
+ * 
+ * Here we create Mario, this class will be used both in Level1 and Level2.
+ *
+ */
 public class Mario {
 	private int counter = 0;
 	private boolean jumping = false;
@@ -23,7 +28,7 @@ public class Mario {
 	private double climbingSpeed = 5.0;
 	private double gravity = 2.0;
 	private double scale = 30;
-	private Rectangle2D marioBoundingBox;
+	private Rectangle2D marioBox;
 	private Rectangle2D donkeyKong;
 	private Model model;
 	private Animation animation;
@@ -40,31 +45,60 @@ public class Mario {
 		this.model = model;
 		animation = new Animation(model);
 
-		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
+		marioBox = new Rectangle2D(x, y, scale, scale);
 	}
 
+	/**
+	 * This methods allows Mario run around, climb ladders and jump. The ladder�s
+	 * placement differ in Level1 and Level2 and therefore we need to check whether
+	 * we are in Level1 or 2 and then use different methods.
+	 * 
+	 * @param key
+	 */
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
 		checkPosition();
 		// Höger
 		if (key.getCode() == KeyCode.D) {
 			direction = "right";
-			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
-			} else {
-				x += speed;
+			if (model.getCurrentState() instanceof Level1) {
+				if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+				} else {
+					x += speed;
+				}
+			} else if (model.getCurrentState() instanceof Level2) {
+				if (marioSpecificLadderAndFloor2() && !marioYCoordinate()) {
+				} else {
+					x += speed;
+				}
 			}
+
 			// Vänster
 		} else if (key.getCode() == KeyCode.A) {
 			direction = "left";
-			if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
-			} else {
-				x -= speed;
+			if (model.getCurrentState() instanceof Level1) {
+				if (marioSpecificLadderAndFloor() && !marioYCoordinate()) {
+				} else {
+					x -= speed;
+				}
+			} else if (model.getCurrentState() instanceof Level2) {
+				if (marioSpecificLadderAndFloor2() && !marioYCoordinate()) {
+				} else {
+					x -= speed;
+				}
 			}
+
 			// Hoppa
 		} else if (key.getCode() == KeyCode.SPACE) {
-			if (onFloor() && !ladderCollision()) {
-				jumping = true;
+			if (model.getCurrentState() instanceof Level1) {
+				if (onFloor() && !ladderCollision() || marioSpecificLadderAndFloor()) {
+					jumping = true;
+				}
+			} else if (model.getCurrentState() instanceof Level2) {
+				if (onFloor() && !ladderCollision() || marioSpecificLadderAndFloor2()) {
+					jumping = true;
+				}
 			}
+
 			// Klättra uppåt
 		} else if (key.getCode() == KeyCode.W) {
 			if (ladderCollision()) {
@@ -73,13 +107,26 @@ public class Mario {
 			}
 			// klättra nedåt
 		} else if (key.getCode() == KeyCode.S) {
-			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
-				direction = "climb";
-				y += climbingSpeed;
+			if (model.getCurrentState() instanceof Level1) {
+				if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
+					direction = "climb";
+					y += climbingSpeed;
+				}
+			} else if (model.getCurrentState() instanceof Level2) {
+				if (marioSpecificLadderAndFloor2() || marioOnlyOnLadder()) {
+					direction = "climb";
+					y += climbingSpeed;
+				}
 			}
 		}
 	}
 
+	/**
+	 * drawMario() will change the animation of Mario depending on witch direction he
+	 * is in. The direction depends on which key is pressed in KeyPressed().
+	 * 
+	 * @param g
+	 */
 	public void drawMario(GraphicsContext g) {
 		if (direction == "right") {
 			g.drawImage(animation.getMarioStandRight(), x, y, scale, scale);
@@ -96,18 +143,20 @@ public class Mario {
 	public void update() {
 		gravity(ladderCollision(), onFloor());
 		marioDonkeyKongCollision();
-		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
-		marioSpecificLadderAndFloor();
+		marioBox = new Rectangle2D(x, y, scale, scale);
+		if (model.getCurrentState() instanceof Level1) {
+			marioSpecificLadderAndFloor();
+		} else if (model.getCurrentState() instanceof Level2) {
+			marioSpecificLadderAndFloor2();
+		}
 		counter();
 	}
 
 	public void counter() {
-
 		if (jumping == true) {
 			counter += 1;
 			if (counter < 13) {
 				y -= 6;
-
 			} else {
 				counter = 0;
 				jumping = false;
@@ -115,13 +164,24 @@ public class Mario {
 		}
 
 	}
+	
+	/**
+	 * If mario intersects DonkeyKong the game is over. 
+	 */
 
 	public void marioDonkeyKongCollision() {
-		if (marioBoundingBox.intersects(donkeyKong)) {
+		if (marioBox.intersects(donkeyKong)) {
 			model.switchState(new GameOverMenu(model));
 		}
 	}
 
+	/**
+	 * If Mario is on a Ladder or on the Floor there is no gravity, but if he is
+	 * jumping the gravity will force him down.
+	 * 
+	 * @param isOnLadder
+	 * @param isOnFloor
+	 */
 	public void gravity(boolean isOnLadder, boolean isOnFloor) {
 
 		if (isOnLadder || isOnFloor) {
@@ -132,7 +192,7 @@ public class Mario {
 
 	public boolean onFloor() {
 		for (Rectangle2D floor : floors) {
-			if (marioBoundingBox.intersects(floor)) {
+			if (marioBox.intersects(floor)) {
 				return true;
 			}
 		}
@@ -141,7 +201,7 @@ public class Mario {
 
 	public boolean ladderCollision() {
 		for (Rectangle2D ladder : ladders) {
-			if (marioBoundingBox.intersects(ladder)) {
+			if (marioBox.intersects(ladder)) {
 				return true;
 			}
 		}
@@ -156,28 +216,70 @@ public class Mario {
 		}
 	}
 
+	/**
+	 * This is used in KeyPressed and decides whether Mario can move in a certain
+	 * direction or not depending on which floor and ladder he stands upon. 
+	 * 
+	 * @return
+	 */
 	public boolean marioSpecificLadderAndFloor() {
-		if (marioBoundingBox.intersects(ladders.get(0)) && marioBoundingBox.intersects(floors.get(1))) {
+		if (marioBox.intersects(ladders.get(0)) && marioBox.intersects(floors.get(1))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(1)) && marioBoundingBox.intersects(floors.get(2))) {
+		} else if (marioBox.intersects(ladders.get(1)) && marioBox.intersects(floors.get(2))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(2)) && marioBoundingBox.intersects(floors.get(2))) {
+		} else if (marioBox.intersects(ladders.get(2)) && marioBox.intersects(floors.get(2))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(3)) && marioBoundingBox.intersects(floors.get(3))) {
+		} else if (marioBox.intersects(ladders.get(3)) && marioBox.intersects(floors.get(3))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(4)) && marioBoundingBox.intersects(floors.get(4))) {
+		} else if (marioBox.intersects(ladders.get(4)) && marioBox.intersects(floors.get(4))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(5)) && marioBoundingBox.intersects(floors.get(5))) {
+		} else if (marioBox.intersects(ladders.get(5)) && marioBox.intersects(floors.get(5))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(6)) && marioBoundingBox.intersects(floors.get(5))) {
+		} else if (marioBox.intersects(ladders.get(6)) && marioBox.intersects(floors.get(5))) {
 			return true;
-		} else if (marioBoundingBox.intersects(ladders.get(7)) && marioBoundingBox.intersects(floors.get(6))) {
+		} else if (marioBox.intersects(ladders.get(7)) && marioBox.intersects(floors.get(6))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+	public boolean marioSpecificLadderAndFloor2() {
+		if (marioBox.intersects(ladders.get(0)) && marioBox.intersects(floors.get(1))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(1)) && marioBox.intersects(floors.get(1))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(2)) && marioBox.intersects(floors.get(2))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(3)) && marioBox.intersects(floors.get(2))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(4)) && marioBox.intersects(floors.get(2))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(5)) && marioBox.intersects(floors.get(3))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(6)) && marioBox.intersects(floors.get(3))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(7)) && marioBox.intersects(floors.get(3))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(8)) && marioBox.intersects(floors.get(4))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(9)) && marioBox.intersects(floors.get(4))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(10)) && marioBox.intersects(floors.get(4))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(10)) && marioBox.intersects(floors.get(5))) {
+			return true;
+		} else if (marioBox.intersects(ladders.get(11)) && marioBox.intersects(floors.get(6))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * This method is use in KeyPressed and controls Marios Y-coordinate. 
+	 * @return
+	 */
 	public boolean marioYCoordinate() {
 		double yRef1 = y + 28.0;
 		double yRef2 = y + 29.0;
@@ -205,6 +307,9 @@ public class Mario {
 		}
 	}
 
+	/**
+	 * Tells Mario that he cannot move outside the screen. 
+	 */
 	public void checkPosition() {
 		if (x >= SCREEN_WIDTH - scale) {
 			x -= speed;
@@ -213,12 +318,8 @@ public class Mario {
 		}
 	}
 
-	public void marioBarrelCollision() {
-		y -= 5;
-	}
-
-	public Rectangle2D getMarioBoundingBox() {
-		return marioBoundingBox;
+	public Rectangle2D getMarioBox() {
+		return marioBox;
 	}
 
 }

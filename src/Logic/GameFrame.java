@@ -1,15 +1,15 @@
 package Logic;
+
 import java.io.FileNotFoundException;
-
-import Level1.*;
-
 import javafx.scene.layout.HBox;
 
+/**
+ * Creates a new GamePanel and places it within the Frame. Calls for the repaint-method in GamePanel.
+ */
 public class GameFrame extends HBox {
 	private GamePanel g;
 
 	public GameFrame(Model model, int width, int height) {
-		// Create a new GamePanel and add's it to the frame   
 		g = new GamePanel(model, width, height);
 		this.getChildren().add(g);
 	}

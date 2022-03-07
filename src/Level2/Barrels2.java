@@ -37,6 +37,11 @@ public class Barrels2 {
 		g.drawImage(animation.getBarrelStack(), 190, 110, 50, 50);
 	}
 		
+	/**
+	 * This method returns true if the barrelBox is on floor 1, 3 or 5
+	 * 
+	 * @return
+	 */
 	public boolean barrelFloorRight() {
 		if (barrelBoundingBox.intersects(floors.get(1))) {
 			return true;
@@ -49,6 +54,11 @@ public class Barrels2 {
 		}
 	}
 	
+	/**
+	 * This method returns true if the barrelBox is on floor 0, 2, 4
+	 * 
+	 * @return
+	 */
 	public boolean barrelFloorLeft() {
 		if (barrelBoundingBox.intersects(floors.get(0))) {
 			return true;
@@ -61,6 +71,10 @@ public class Barrels2 {
 		}
 	}
 	
+	/**
+	 * rollingBarrels controls if the barrel should move left or right, otherwise
+	 * fall down.
+	 */
 	public void rollingBarrels() {
 		if (barrelFloorRight()) {
 			x += 2;
@@ -81,7 +95,6 @@ public class Barrels2 {
 
 	public void update() {
 		rollingBarrels();
-		barrelBoundingBox = new Rectangle2D(x, y, scale, scale);
-		
+		barrelBoundingBox = new Rectangle2D(x, y, scale, scale);	
 	}
 }

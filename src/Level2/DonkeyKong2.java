@@ -5,7 +5,6 @@ import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import constants.Constants;
 
 
 public class DonkeyKong2 {

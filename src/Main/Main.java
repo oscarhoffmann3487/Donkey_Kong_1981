@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 
 import Logic.GameFrame;
 import Logic.Model;
-import constants.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,6 +15,12 @@ import javafx.scene.input.KeyEvent;
 
 import javafx.stage.Stage;
 
+/**
+ * Here we create the Model, GameFram and Scene with specific sizes. This class
+ * starts the method handle which will send model.update() and frame.repaint()
+ * 
+ *
+ */
 public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
@@ -29,7 +34,7 @@ public class Main extends Application {
 		Model model = new Model();
 		GameFrame frame = new GameFrame(model, SCREEN_WIDTH, SCREEN_HEIGHT);
 		Scene gameScene = new Scene(frame);
-		
+
 		final double targetFps = 50.0;
 
 		final double nanoPerUpdate = 1000000000.0 / targetFps;

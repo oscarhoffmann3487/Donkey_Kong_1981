@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import Logic.Model;
 import javafx.scene.image.Image;
 
+/**
+ * I denna klassen tas alla bilder som används i Level1 och Level2 in. 
+ *
+ */
 public class Animation {
 	private Image menuImage;
 	private Image marioStandRight;
@@ -30,6 +34,7 @@ public class Animation {
 	private Image ladder2;
 	private Image donkeyLeft;
 	private Image donkeyRight;
+	private Image fire; 
 
 	public Animation(Model model) {
 		try {
@@ -56,6 +61,7 @@ public class Animation {
 			score300 = new Image(new FileInputStream("Images/Scores/Score300.png"));
 			floor2 = new Image(new FileInputStream("Images/Level2/floor.png"));
 			ladder2 = new Image(new FileInputStream("Images/Level2/ladder.png"));
+			fire = new Image(new FileInputStream("Images/fire.png"));
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
@@ -157,5 +163,10 @@ public class Animation {
 
 	public Image getLadder2() {
 		return ladder2;
+	}
+
+
+	public Image getFire() {
+		return fire;
 	}
 }

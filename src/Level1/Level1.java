@@ -2,22 +2,22 @@ package Level1;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import Level2.Level2;
 import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
-import States.HasWon;
-import States.HighScore;
 import States.Menu;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+/**
+ * Level1 extends GameState. Read further down for more information about the
+ * methods.
+ */
 
 public class Level1 extends GameState {
 
@@ -72,10 +72,14 @@ public class Level1 extends GameState {
 		paulinesItem.add(hat);
 		capes.add(cape);
 
-		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBoundingBox(),
+		mario = new Mario(model, floors.getFloorBoundaries(), donkeyKong.getDonkeyKongBox(),
 				ladders.getladderBoundaries());
 	}
 
+	/**
+	 * Within the draw-method every type of item calls for their own draw-method.
+	 * Here we also print out bonus and score.
+	 */
 	@Override
 	public void draw(GraphicsContext g) throws FileNotFoundException {
 		// Background
@@ -91,10 +95,9 @@ public class Level1 extends GameState {
 
 		// Cape
 		Cape();
-		if(capes.contains(cape)) {
-		cape.drawCape(g);
-			}
-	
+		if (capes.contains(cape)) {
+			cape.drawCape(g);
+		}
 
 		// Paulines Items
 		PaulinesItem(g);
@@ -111,19 +114,27 @@ public class Level1 extends GameState {
 		donkeyKong.drawDonkeyKong(g);
 		// Pauline
 		pauline.drawPauline(g);
-		
-		//Bonus and Score
+
+		// Bonus and Score
 		g.setFill(Color.RED);
 		g.setFont(new Font(30));
 		g.fillText("BONUS", 70, 35);
 		g.fillText("SCORE", 200, 35);
-		
+
 		g.setFill(Color.WHITE);
 		g.setFont(new Font(25));
 		g.fillText(String.valueOf(bonus), 70, 60);
 		g.fillText(String.valueOf(score), 200, 60);
 	}
 
+	/**
+	 * Pauline´s items are drawn in this method. If mario intersects pauline's items
+	 * we will remove the item from the Arraylist paulinesItem and replace it in the
+	 * ArrayList marioItem instead. The item will no longer be shown and the player
+	 * receives a specific score for each item depending on how fast it is taken.
+	 * 
+	 * @param g
+	 */
 	public void PaulinesItem(GraphicsContext g) {
 
 		for (PaulinesItem item : paulinesItem) {
@@ -136,27 +147,27 @@ public class Level1 extends GameState {
 			}
 		}
 
-		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
+		if (mario.getMarioBox().intersects(purse.getPurseBox())) {
 			takenPurse = true;
 			paulinesItem.remove(purse);
 			mariosItem.add(purse);
-			purse.setPurseBoundingBox(null);
-			score += bonus*300;
-			
-		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
+			purse.setPurseBox(null);
+			score += bonus * 300;
+
+		} else if (mario.getMarioBox().intersects(hat.getHatBox())) {
 			takenHat = true;
 			paulinesItem.remove(hat);
 			mariosItem.add(hat);
-			hat.setHatBoundingBox(null);
-			score += bonus*200;
-		
-		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
+			hat.setHatBox(null);
+			score += bonus * 200;
+
+		} else if (mario.getMarioBox().intersects(umbrella.getUmbrellaBox())) {
 			takenUmbrella = true;
 			paulinesItem.remove(umbrella);
 			mariosItem.add(umbrella);
-			umbrella.setUmbrellaBoundingBox(null);
-			score += bonus*100;
-		
+			umbrella.setUmbrellaBox(null);
+			score += bonus * 100;
+
 		}
 		purseScoreAnimation(g);
 		hatScoreAnimation(g);
@@ -168,7 +179,7 @@ public class Level1 extends GameState {
 		if (takenPurse == true) {
 			scoreTimer += 1;
 			if (scoreTimer < 50) {
-				g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
+				g.drawImage(animation.getScore300(), 220.0, 215.0, scoreScale, scoreScale);
 			} else {
 				takenPurse = false;
 				scoreTimer = 0;
@@ -181,7 +192,7 @@ public class Level1 extends GameState {
 		if (takenHat == true) {
 			scoreTimer += 1;
 			if (scoreTimer < 50) {
-				g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
+				g.drawImage(animation.getScore200(), 120.0, 320.0, scoreScale, scoreScale);
 			} else {
 				takenHat = false;
 				scoreTimer = 0;
@@ -193,7 +204,7 @@ public class Level1 extends GameState {
 		if (takenUmbrella == true) {
 			scoreTimer += 1;
 			if (scoreTimer < 50) {
-				g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
+				g.drawImage(animation.getScore100(), 350.0, 405.0, scoreScale, scoreScale);
 			} else {
 				takenUmbrella = false;
 				scoreTimer = 0;
@@ -201,16 +212,14 @@ public class Level1 extends GameState {
 		}
 	}
 
-	
 	public void Cape() {
-		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
+		if (mario.getMarioBox().intersects(cape.getCapeBox())) {
 			capes.remove(cape);
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker pï¿½ " + key.getCode() + " i PlayState");
 		if (key.getCode() == KeyCode.ESCAPE) {
 			model.switchState(new Menu(model));
 		} else {
@@ -226,27 +235,35 @@ public class Level1 extends GameState {
 		createBarrels();
 		hasWonLevel();
 		bonusSystem();
-		initiateCapteTimer();
-
+		initiateCapeTimer();
 	}
 
-	public void initiateCapteTimer() {
-		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
+	/**
+	 * If mario intersects the cape the capeTimer will start and Mario will be
+	 * immune against barrels for a short amount of time.
+	 */
+	public void initiateCapeTimer() {
+		if (mario.getMarioBox().intersects(cape.getCapeBox())) {
 			capeTimer = 0;
 		} else {
 			capeTimer += 1;
 		}
+		
+
 	}
 
+	/**
+	 * If mario intersects pauline and has all of Paulines items we will switch to
+	 * level2.
+	 */
 	public void hasWonLevel() {
-		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
+		if (mario.getMarioBox().intersects(pauline.getPaulineBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
 			model.switchState(new Level2(model, score));
 		}
 	}
 
 	public void bonusSystem() {
-
 		if (bonus >= 0) {
 			if (bonusTimer == 100) {
 				bonus -= 10;
@@ -256,11 +273,15 @@ public class Level1 extends GameState {
 
 	}
 
+	/**
+	 * In this method we create the barrels depending on the barrelTimer. When the
+	 * barrel is created the barrelTimer will be zero once again.
+	 */
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
 			barrel.update();
 
-			if (capeTimer > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBoundingBox())) {
+			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
 				model.switchState(new GameOverMenu(model));
 			}
 		}
@@ -279,7 +300,9 @@ public class Level1 extends GameState {
 			donkeyKong.setMovement("stand");
 		}
 
-		// Lï¿½gger till nya barrels i listan med ett visst tidsintervall
+		/** Lägger till nya barrels i listan med ett visst tidsintervall
+		 * 
+		 */
 		if (barrelTimer == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
 

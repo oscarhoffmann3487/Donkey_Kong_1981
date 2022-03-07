@@ -9,7 +9,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-
 public class Ladder2{
 
 	private ArrayList<Rectangle2D> ladderBoundaries;

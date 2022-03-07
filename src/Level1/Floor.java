@@ -10,6 +10,11 @@ import javafx.scene.canvas.GraphicsContext;
 
 import javafx.scene.paint.Color;
 
+/**
+ * This class takes care of all the floors in level1. Every floor has a
+ * Rectangle2D around them.
+ *
+ */
 public class Floor {
 
 	private ArrayList<Rectangle2D> floorBoundaries;
@@ -23,9 +28,9 @@ public class Floor {
 		Rectangle2D floor4 = new Rectangle2D(100.0, 255.0, 400.0, 15.0);
 		Rectangle2D floor5 = new Rectangle2D(0.0, 155.0, 400.0, 15.0);
 		Rectangle2D floor6 = new Rectangle2D(350.0, 100.0, 150.0, 15.0);
-		
+
 		floorBoundaries = new ArrayList<>();
-		
+
 		floorBoundaries.add(floor0);
 		floorBoundaries.add(floor1);
 		floorBoundaries.add(floor2);
@@ -46,7 +51,7 @@ public class Floor {
 		int floorHeight = 15;
 		int floorWidth = 300;
 		g.setFill(Color.WHITE);
-		
+
 		// Floor0
 		g.drawImage(animation.getFloor(), 0, 655, floorWidth, floorHeight);
 		g.drawImage(animation.getFloor(), 250, 655, floorWidth, floorHeight);
