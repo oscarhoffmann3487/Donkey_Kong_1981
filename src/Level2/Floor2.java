@@ -22,7 +22,7 @@ public class Floor2 {
 		Rectangle2D floor3 = new Rectangle2D(80.0, 355.0, 310.0, 15.0);
 		Rectangle2D floor4 = new Rectangle2D(110.0, 255.0, 250.0, 15.0);
 		Rectangle2D floor5 = new Rectangle2D(140.0, 155.0, 200.0, 15.0);
-		Rectangle2D floor6 = new Rectangle2D(170.0, 100.0, 140.0, 15.0);
+		Rectangle2D floor6 = new Rectangle2D(170.0, 85.0, 140.0, 15.0);
 		
 		floorBoundaries = new ArrayList<>();
 		
@@ -45,24 +45,19 @@ public class Floor2 {
 	public void drawFloor(GraphicsContext g) {
 		int floorHeight = 15;
 		int floorWidth = 300;
-		g.setFill(Color.WHITE);
-		
-		/*
-		 * g.fillRect(0.0, 655.0, 500.0, 15.0); g.fillRect(0.0, 555.0, 400.0, 15.0);
-		 * g.fillRect(100.0, 455.0, 400.0, 15.0); g.fillRect(0.0, 355.0, 300.0, 15.0);
-		 * g.fillRect(100.0, 255.0, 400.0, 15.0); g.fillRect(0.0, 155.0, 400.0, 15.0);
-		 * g.fillRect(350.0, 100.0, 150.0, 15.0);
-		 */
 		
 		// Floor0
 		g.drawImage(animation.getFloor2(), 0, 655, floorWidth, floorHeight);
 		g.drawImage(animation.getFloor2(), 250, 655, floorWidth, floorHeight);
+		
 		// Floor1
 		g.drawImage(animation.getFloor2(), 20, 555, floorWidth, floorHeight);
 		g.drawImage(animation.getFloor2(), 160, 555, floorWidth, floorHeight);
+		
 		// Floor2
 		g.drawImage(animation.getFloor2(), 50, 455, floorWidth, floorHeight);
 		g.drawImage(animation.getFloor2(), 130, 455, floorWidth, floorHeight);
+		
 		// Floor3
 		g.drawImage(animation.getFloor2(), 80, 355, floorWidth+10, floorHeight);
 	
@@ -72,7 +67,7 @@ public class Floor2 {
 		// Floor5
 		g.drawImage(animation.getFloor2(), 140, 155, floorWidth-100, floorHeight);
 		// Floor6
-		g.drawImage(animation.getFloor2(), 170, 100, floorWidth-160, floorHeight);
+		g.drawImage(animation.getFloor2(), 170, 85, floorWidth-160, floorHeight);
 
 	}
 

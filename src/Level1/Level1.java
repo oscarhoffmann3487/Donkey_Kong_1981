@@ -8,6 +8,7 @@ import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
 import States.HasWon;
+import States.HighScore;
 import States.Menu;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class Level1 extends GameState {
 
@@ -31,7 +33,6 @@ public class Level1 extends GameState {
 	private PaulinesItem purse;
 	private PaulinesItem hat;
 	private PaulinesItem umbrella;
-	private Level2 level2;
 	private Cape cape;
 	private Animation animation;
 	private int scoreScale = 40;
@@ -39,6 +40,10 @@ public class Level1 extends GameState {
 	private int score = 0;
 	private int bonus = 500;
 	private int bonusTimer = 0;
+	private int scoreTimer = 0;
+	private boolean takenPurse = false;
+	private boolean takenHat = false;
+	private boolean takenUmbrella = false;
 	private ArrayList<Barrels> barrels;
 	private ArrayList<Cape> capes;
 	private ArrayList<PaulinesItem> paulinesItem;
@@ -46,7 +51,6 @@ public class Level1 extends GameState {
 
 	public Level1(Model model) {
 		super(model);
-		level2 = new Level2(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
 		ladders = new Ladder(model);
@@ -108,11 +112,16 @@ public class Level1 extends GameState {
 		// Pauline
 		pauline.drawPauline(g);
 		
-		//BonusLevel
-		g.drawImage(animation.getBonus(), 100, 50, 100, 100);
+		//Bonus and Score
 		g.setFill(Color.RED);
-		g.fillText(String.valueOf(bonus), 100, 50);
-		g.fillText(String.valueOf(score), 200, 50);
+		g.setFont(new Font(30));
+		g.fillText("BONUS", 70, 35);
+		g.fillText("SCORE", 200, 35);
+		
+		g.setFill(Color.WHITE);
+		g.setFont(new Font(25));
+		g.fillText(String.valueOf(bonus), 70, 60);
+		g.fillText(String.valueOf(score), 200, 60);
 	}
 
 	public void PaulinesItem(GraphicsContext g) {
@@ -128,30 +137,71 @@ public class Level1 extends GameState {
 		}
 
 		if (mario.getMarioBoundingBox().intersects(purse.getPurseBoundingBox())) {
-			g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
+			takenPurse = true;
 			paulinesItem.remove(purse);
 			mariosItem.add(purse);
 			purse.setPurseBoundingBox(null);
 			score += bonus*300;
 			
 		} else if (mario.getMarioBoundingBox().intersects(hat.getHatBoundingBox())) {
-			g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
+			takenHat = true;
 			paulinesItem.remove(hat);
 			mariosItem.add(hat);
 			hat.setHatBoundingBox(null);
-			
 			score += bonus*200;
 		
 		} else if (mario.getMarioBoundingBox().intersects(umbrella.getUmbrellaBoundingBox())) {
-			g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
+			takenUmbrella = true;
 			paulinesItem.remove(umbrella);
 			mariosItem.add(umbrella);
 			umbrella.setUmbrellaBoundingBox(null);
 			score += bonus*100;
 		
 		}
+		purseScoreAnimation(g);
+		hatScoreAnimation(g);
+		umbrellaScoreAnimation(g);
 	}
 
+	public void purseScoreAnimation(GraphicsContext g) {
+
+		if (takenPurse == true) {
+			scoreTimer += 1;
+			if (scoreTimer < 50) {
+				g.drawImage(animation.getScore300(), 430.0, 215.0, scoreScale, scoreScale);
+			} else {
+				takenPurse = false;
+				scoreTimer = 0;
+			}
+		}
+	}
+
+	public void hatScoreAnimation(GraphicsContext g) {
+
+		if (takenHat == true) {
+			scoreTimer += 1;
+			if (scoreTimer < 50) {
+				g.drawImage(animation.getScore200(), 30.0, 320.0, scoreScale, scoreScale);
+			} else {
+				takenHat = false;
+				scoreTimer = 0;
+			}
+		}
+	}
+
+	public void umbrellaScoreAnimation(GraphicsContext g) {
+		if (takenUmbrella == true) {
+			scoreTimer += 1;
+			if (scoreTimer < 50) {
+				g.drawImage(animation.getScore100(), 440.0, 405.0, scoreScale, scoreScale);
+			} else {
+				takenUmbrella = false;
+				scoreTimer = 0;
+			}
+		}
+	}
+
+	
 	public void Cape() {
 		if (mario.getMarioBoundingBox().intersects(cape.getCapeBoundingBox())) {
 			capes.remove(cape);
@@ -191,7 +241,7 @@ public class Level1 extends GameState {
 	public void hasWonLevel() {
 		if (mario.getMarioBoundingBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
-			model.switchState(level2);
+			model.switchState(new Level2(model, score));
 		}
 	}
 

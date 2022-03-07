@@ -18,7 +18,6 @@ import static constants.Constants.SCREEN_WIDTH;
 public class Menu extends GameState {
 
 	private Level1 level1;
-	private Level2 level2;
 	private Help help;
 	private GameOverMenu gameOverMenu;
 	private HighScore highScore;
@@ -33,7 +32,6 @@ public class Menu extends GameState {
 		fontColor = Color.WHITE;
 		level1 = new Level1(model);
 		help = new Help(model);
-		level2 = new Level2(model);
 		highScore = new HighScore(model);
 		animation = new Animation(model);
 		gameOverMenu = new GameOverMenu(model);

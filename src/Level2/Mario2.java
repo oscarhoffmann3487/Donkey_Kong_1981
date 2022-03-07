@@ -15,13 +15,13 @@ import javafx.scene.input.KeyEvent;
 import static constants.Constants.SCREEN_WIDTH;
 
 public class Mario2 {
-
+	private int counter = 0;
 	private double x = 250.0;
 	private double y = 625.0;
 	private double speed = 8.0;
 	private double climbingSpeed = 5.0;
 	private double gravity = 2.0;
-	private double jumpHeight = 40;
+	private boolean jumping = false;
 	private double scale = 30;
 	private Rectangle2D marioBoundingBox;
 	private Rectangle2D donkeyKong;
@@ -45,7 +45,6 @@ public class Mario2 {
 	
 
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Trycker p� " + key.getCode() + " i PlayState");
 		checkPosition();
 		// Höger
 		if (key.getCode() == KeyCode.D) {
@@ -63,19 +62,19 @@ public class Mario2 {
 			}
 			// Hoppa
 		} else if (key.getCode() == KeyCode.SPACE) {
-			if (onFloor()) {
-				y -= jumpHeight;
+			if (onFloor() && !ladderCollision()) {
+				jumping = true;
 			}
 			// Klättra uppåt
 		} else if (key.getCode() == KeyCode.W) {
-			direction = "climb";
 			if (ladderCollision()) {
+				direction = "climb";
 				y -= climbingSpeed;
 			}
 			// klättra nedåt
 		} else if (key.getCode() == KeyCode.S) {
-			direction = "climb";
 			if (marioSpecificLadderAndFloor() || marioOnlyOnLadder()) {
+				direction = "climb";
 				y += climbingSpeed;
 			}
 		}
@@ -101,8 +100,23 @@ public class Mario2 {
 		marioDonkeyKongCollision();
 		marioBoundingBox = new Rectangle2D(x, y, scale, scale);
 		marioSpecificLadderAndFloor();
+		counter();
+}
 
+public void counter() {
+
+	if (jumping == true) {
+		counter += 1;
+		if (counter < 13) {
+			y -= 6;
+
+		} else {
+			counter = 0;
+			jumping = false;
+		}
 	}
+}
+
 
 	public void marioDonkeyKongCollision() {
 		if (marioBoundingBox.intersects(donkeyKong)) {

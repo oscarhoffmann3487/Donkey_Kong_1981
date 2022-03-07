@@ -7,6 +7,7 @@ import constants.Animation;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 public class Ladder2{
@@ -40,8 +41,8 @@ public class Ladder2{
 		Rectangle2D ladder9 = new Rectangle2D(350, floor4Y, ladderWidth-5, ladderHeight*2+15);
 		Rectangle2D ladder10 = new Rectangle2D(190, floor4Y, ladderWidth-5, ladderHeight*2+15);
 		//floor4
-		Rectangle2D ladder11 = new Rectangle2D(145, floor5Y, ladderWidth-5, ladderHeight*2+15);
-		Rectangle2D ladder12 = new Rectangle2D(320, floor5Y, ladderWidth-5, ladderHeight*2+15);
+		Rectangle2D ladder11 = new Rectangle2D(142, floor5Y, ladderWidth-5, ladderHeight*2+15);
+		Rectangle2D ladder12 = new Rectangle2D(325, floor5Y, ladderWidth-5, ladderHeight*2+15);
 		//floor5
 		Rectangle2D ladder13 = new Rectangle2D(175, floor6Y, ladderWidth-5, ladderHeight+15);
 		
@@ -72,7 +73,7 @@ public class Ladder2{
 	}
 
 	public void drawLadder(GraphicsContext g) {
-
+		
 		// Floor0
 		g.drawImage(animation.getLadder2(), 20, floor0Y-2*ladderHeight, ladderWidth, ladderHeight);
 		g.drawImage(animation.getLadder2(), 20, floor0Y-ladderHeight, ladderWidth, ladderHeight);
@@ -106,14 +107,11 @@ public class Ladder2{
 		//Floor4
 		g.drawImage(animation.getLadder2(), 140, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
 		g.drawImage(animation.getLadder2(), 140, floor4Y-ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(animation.getLadder2(), 315, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
-		g.drawImage(animation.getLadder2(), 315, floor4Y-ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder2(), 325, floor4Y-2*ladderHeight, ladderWidth, ladderHeight);
+		g.drawImage(animation.getLadder2(), 325, floor4Y-ladderHeight, ladderWidth, ladderHeight);
 		
 		//FLoor5
-		g.drawImage(animation.getLadder2(), 170, floor5Y-ladderHeight, ladderWidth, ladderHeight);
-	
-
-
+		g.drawImage(animation.getLadder2(), 170, floor5Y-55, ladderWidth, ladderHeight+15);
 	}
 
 }

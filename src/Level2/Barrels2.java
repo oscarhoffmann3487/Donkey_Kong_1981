@@ -13,10 +13,6 @@ public class Barrels2 {
 
 	private double x = 200.0;
 	private double y = 135.0;
-	public double getY() {
-		return y;
-	}
-
 	private double scale = 20.0;
 	private Rectangle2D barrelBoundingBox;
 	private ArrayList<Rectangle2D> floors;
@@ -30,13 +26,15 @@ public class Barrels2 {
 		
 	}
 	
-	
+	public double getY() {
+		return y;
+	}
 	public void drawBarrel(GraphicsContext g) {
 		g.drawImage(animation.getBarrel(), x, y, scale, scale);
 	}
 	
 	public void drawBarrelStack(GraphicsContext g) {
-		g.drawImage(animation.getBarrelStack(), 200, 115, 50, 50);
+		g.drawImage(animation.getBarrelStack(), 190, 110, 50, 50);
 	}
 		
 	public boolean barrelFloorRight() {

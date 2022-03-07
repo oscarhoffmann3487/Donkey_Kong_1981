@@ -28,11 +28,11 @@ public class HasWon extends GameState {
 
 	private Color bgColor;
 	private Color fontColor1;
-	private Image donkeyLeft;
-	private Image donkeyRight;
+	private int finalScore;
 	
-	public HasWon(Model model) {
+	public HasWon(Model model, int finalScore) {
 		super(model);
+		this.finalScore = finalScore;
 		bgColor = Color.BLACK;
 		fontColor1 = Color.DARKBLUE;	
 	}
@@ -47,14 +47,15 @@ public class HasWon extends GameState {
 		drawBg(g, bgColor);
 		g.setFill(fontColor1);
 		
-			
+	
 		g.setFill(Color.RED);
-		g.setFont(new Font(50)); // Big letters
+		g.setFont(new Font(30)); // Big letters
 		g.fillText("YOU WON", 60, 150);
 		
 		g.setFill(Color.RED);
-		g.setFont(new Font(50)); // Big letters
+		g.setFont(new Font(30)); // Big letters
 		g.fillText("YOUR SCORE: ", 60, 200);
+		g.fillText(String.valueOf(finalScore), 300, 200);
 				
 		g.setFill(fontColor1);
 		g.fillRoundRect(100, 300, 300, 80, 30, 30);
