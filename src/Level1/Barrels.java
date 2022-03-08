@@ -8,21 +8,31 @@ import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * 
+ * Barrels-class decides how the barrels and the stack of barrels will be
+ * printed in both level1 and level2.The class has methods to control where the
+ * barrels are located and according to this decide how they should roll.
+ *
+ */
 public class Barrels {
 
-	private double x = 35.0;
-	private double y = 135.0;
-
-	public double getY() {
-		return y;
-	}
+	private double x;
+	private double y;
+	private double stackX;
+	private double stackY;
 
 	private double scale = 20.0;
 	private Rectangle2D barrelBox;
 	private ArrayList<Rectangle2D> floors;
 	private Animation animation;
 
-	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries) {
+	public Barrels(Model model, ArrayList<Rectangle2D> floorBoundaries, double x, double y, double stackX,
+			double stackY) {
+		this.x = x;
+		this.y = y;
+		this.stackX = stackX;
+		this.stackY = stackY;
 		this.floors = floorBoundaries;
 		barrelBox = new Rectangle2D(x, y, scale, scale);
 		animation = new Animation(model);
@@ -34,7 +44,7 @@ public class Barrels {
 	}
 
 	public void drawBarrelStack(GraphicsContext g) {
-		g.drawImage(animation.getBarrelStack(), 0, 115, 50, 50);
+		g.drawImage(animation.getBarrelStack(), stackX, stackY, 45, 45);
 	}
 
 	/**

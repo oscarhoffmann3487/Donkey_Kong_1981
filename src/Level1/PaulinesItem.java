@@ -8,9 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * PaulinesItem-class is used in both level1 and level2. Prints out all of
  * Paulines items.
- * 
- * @author Julia
- *
  */
 public class PaulinesItem {
 	private Rectangle2D purseBox;

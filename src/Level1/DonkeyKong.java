@@ -4,15 +4,21 @@ import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-
+/**
+ * 
+ * DonkeyKong-class decides how DonkeyKong is printed in both level1 and level2.
+ * 
+ */
 public class DonkeyKong {
-	private double x = 30.0;
-	private double y = 115.0;
+	private double x;
+	private double y;
 	private Rectangle2D donkeyKongBox;
 	private Animation animation;
 	private String movement;
 
-	public DonkeyKong(Model model) {
+	public DonkeyKong(Model model, double x, double y) {
+		this.x = x;
+		this.y = y;
 		donkeyKongBox = (new Rectangle2D(x, y, 60.0, 60.0));
 		animation = new Animation(model);
 	}

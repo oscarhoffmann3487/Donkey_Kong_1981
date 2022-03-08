@@ -2,9 +2,11 @@ package States;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
 import Logic.Model;
@@ -61,8 +63,8 @@ public class HasWon extends GameState {
 				model.switchState(new Menu(model));
 			}
 		});
-	}
 
+	}
 	
 	public boolean checkIfNewHighscore(int finalscore) {
 		

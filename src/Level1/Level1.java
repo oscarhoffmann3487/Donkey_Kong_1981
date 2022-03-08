@@ -58,11 +58,11 @@ public class Level1 extends GameState {
 		purse = new PaulinesItem(model);
 		hat = new PaulinesItem(model);
 		umbrella = new PaulinesItem(model);
-		donkeyKong = new DonkeyKong(model);
-		pauline = new Pauline(model);
+		donkeyKong = new DonkeyKong(model, 30, 115);
+		pauline = new Pauline(model, 400, 55);
 		cape = new Cape(model);
 		animation = new Animation(model);
-		this.barrel = new Barrels(model, null);
+		this.barrel = new Barrels(model, null, 35, 135, 0, 115);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
 		mariosItem = new ArrayList<>();
@@ -128,10 +128,10 @@ public class Level1 extends GameState {
 	}
 
 	/**
-	 * Pauline�s items are drawn in this method. If mario intersects pauline's items
-	 * we will remove the item from the Arraylist paulinesItem and replace it in the
-	 * ArrayList marioItem instead. The item will no longer be shown and the player
-	 * receives a specific score for each item depending on how fast it is taken.
+	 * If mario intersects pauline's items we will remove the item from the
+	 * Arraylist paulinesItem and replace it in the ArrayList marioItem instead. The
+	 * item will no longer be shown and the player receives a specific score for
+	 * each item depending on how fast it is taken.
 	 * 
 	 * @param g
 	 */
@@ -248,8 +248,6 @@ public class Level1 extends GameState {
 		} else {
 			capeTimer += 1;
 		}
-		
-
 	}
 
 	/**
@@ -280,9 +278,9 @@ public class Level1 extends GameState {
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
 			barrel.update();
-
+			
 			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
-			//	model.switchState(new GameOverMenu(model));
+				model.switchState(new GameOverMenu(model));
 			}
 		}
 
@@ -300,23 +298,26 @@ public class Level1 extends GameState {
 			donkeyKong.setMovement("stand");
 		}
 
-		/** L�gger till nya barrels i listan med ett visst tidsintervall
+
+
+		/**
+		 * Lägger till nya barrels i listan med ett visst tidsintervall
 		 * 
 		 */
 		if (barrelTimer == 100) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 
 		} else if (barrelTimer == 170) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(),35, 135, 0, 115));
 
 		} else if (barrelTimer == 250) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 
 		} else if (barrelTimer == 300) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 
 		} else if (barrelTimer == 490) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries()));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 			barrelTimer = 0;
 		}
 	}
