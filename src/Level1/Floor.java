@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 
 /**
  * This class takes care of all the floors in level1. Every floor has a
- * Rectangle2D around them.
+ * Rectangle2D surrounding them.
  *
  */
 public class Floor {

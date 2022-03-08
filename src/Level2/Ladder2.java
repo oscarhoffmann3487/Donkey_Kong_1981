@@ -9,6 +9,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+* This class creates all of the ladders within level2. They combine the floors.
+*
+*/
 public class Ladder2{
 
 	private ArrayList<Rectangle2D> ladderBoundaries;
