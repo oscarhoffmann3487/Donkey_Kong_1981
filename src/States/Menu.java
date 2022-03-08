@@ -21,7 +21,7 @@ import static constants.Constants.SCREEN_WIDTH;
 public class Menu extends GameState {
 
 	private Level1 level1;
-	private Level2 level2;
+
 	private HasWon hasWon;
 	private Help help;
 	private HighScore highScore;
@@ -34,10 +34,14 @@ public class Menu extends GameState {
 		super(model);
 		bgColor = Color.BLACK;
 		fontColor = Color.WHITE;
+
 		level1 = new Level1(model);
-		hasWon = new HasWon(model, 0);
-		level2 = new Level2(model, 0);
+		
 		help = new Help(model);
+
+		//level1 = new Level1(model);
+		help = new Help(model);
+
 		highScore = new HighScore(model);
 		animation = new Animation(model);
 	}
@@ -77,7 +81,7 @@ public class Menu extends GameState {
 
 		g.getCanvas().setOnMouseClicked(event -> {
 			if (event.getX() <= 360 && event.getX() >= 150 && event.getY() >= 360 && event.getY() <= 420) {
-				model.switchState(hasWon);
+				model.switchState(level1);
 			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 430 && event.getY() <= 490) {
 				model.switchState(highScore);
 			} else if (event.getX() <= 350 && event.getX() >= 150 && event.getY() >= 500 && event.getY() <= 560) {

@@ -303,7 +303,7 @@ public class Level2 extends GameState {
 		}
 
 		/**
-		 *  Lägger till nya barrels i listan med ett visst tidsintervall
+		 *  Lï¿½gger till nya barrels i listan med ett visst tidsintervall
 		 */
 		if (barrelTimer == 100) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
