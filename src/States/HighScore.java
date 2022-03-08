@@ -17,6 +17,7 @@ public class HighScore extends GameState {
 	private Color bgColor; 
 	private Color fontColor1;
 	private Scanner scanner;
+	private String score;
 	private HashMap<String, Integer> highScoreMap;
 
 	public HighScore(Model model) {
@@ -24,6 +25,7 @@ public class HighScore extends GameState {
 		bgColor = Color.BLACK;
 		fontColor1 = Color.WHITE;
 		highScoreMap = new HashMap<>();
+		
 		try {
 			
 		Scanner scanner = new Scanner(new File("highscores.txt"));
@@ -34,12 +36,10 @@ public class HighScore extends GameState {
 		}
 		
 		while (scanner.hasNext()) {
-			 String name = scanner.next();
-			 int points = scanner.nextInt();
-			 highScoreMap.put(name, points);
+			 score = scanner.next();
+			
 		}
-		scanner.close(); 
-		
+		scanner.close(); 	
 	}
 
 	@Override
@@ -52,20 +52,8 @@ public class HighScore extends GameState {
 		g.setFill(fontColor1);
 		g.setFont(new Font(20)); // Big letters
 	
-		g.fillText(String.valueOf(highScoreMap.get("oscar")), 350, 300);
+		g.fillText(score, 350, 300);
 		
-	
-		//g.fillText(, 350, 300);
-//		g.fillText("", 60, 00);
-//		g.fillText(String.valueOf(finalScore), 350, 300);
-//		g.fillText("", 60, 300);
-//		g.fillText(String.valueOf(finalScore), 350, 300);
-//		g.fillText("", 60, 300);
-//		g.fillText(String.valueOf(finalScore), 350, 300);
-//		g.fillText("", 60, 300);
-//		g.fillText(String.valueOf(finalScore), 350, 300);
-//		
-//	
 		
 		
 		g.fillText("Press \"b\" to go back to main menu.", 20, 560);

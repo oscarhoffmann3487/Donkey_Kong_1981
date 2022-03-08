@@ -34,6 +34,7 @@ public class Level2 extends GameState {
 	private int barrelTimer;
 	private Barrels2 barrel;
 	private Mario mario;
+	private HasWon hasWon;
 	private DonkeyKong2 donkeyKong;
 	private Pauline2 pauline;
 	private Level1.PaulinesItem purse;
@@ -61,7 +62,7 @@ public class Level2 extends GameState {
 
 	public Level2(Model model, int finalScore) {
 		super(model);
-		this.finalScore = finalScore;
+	
 		System.out.println(finalScore);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
@@ -76,11 +77,12 @@ public class Level2 extends GameState {
 		animation = new Animation(model);
 		barrel = new Barrels2(model, null);
 		fire = new Fire(model);
-		
+		hasWon = new HasWon(model, finalScore);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
 		mariosItem = new ArrayList<>();
 		capes = new ArrayList<>();
+		this.finalScore = finalScore;
 		
 		paulinesItem.add(purse);
 		paulinesItem.add(umbrella);
@@ -260,6 +262,11 @@ public class Level2 extends GameState {
 		if (mario.getMarioBox().intersects(pauline.getPaulineBoundingBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
 			model.switchState(new HasWon(model, finalScore));
+			if(hasWon.checkIfNewHighscore(finalScore)) {
+			hasWon.saveScore(finalScore);
+			}
+			
+			
 		
 		}
 	}
@@ -281,7 +288,7 @@ public class Level2 extends GameState {
 			barrel.update();
 
 			if (capeTimer > 400 && barrel.getBarrelBoundingBox().intersects(mario.getMarioBox())) {
-				model.switchState(new GameOverMenu(model));
+				//model.switchState(new GameOverMenu(model));
 			}
 		}
 

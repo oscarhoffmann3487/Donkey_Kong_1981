@@ -128,7 +128,7 @@ public class Level1 extends GameState {
 	}
 
 	/**
-	 * Pauline´s items are drawn in this method. If mario intersects pauline's items
+	 * Paulineï¿½s items are drawn in this method. If mario intersects pauline's items
 	 * we will remove the item from the Arraylist paulinesItem and replace it in the
 	 * ArrayList marioItem instead. The item will no longer be shown and the player
 	 * receives a specific score for each item depending on how fast it is taken.
@@ -282,7 +282,7 @@ public class Level1 extends GameState {
 			barrel.update();
 
 			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
-				model.switchState(new GameOverMenu(model));
+			//	model.switchState(new GameOverMenu(model));
 			}
 		}
 
@@ -300,7 +300,7 @@ public class Level1 extends GameState {
 			donkeyKong.setMovement("stand");
 		}
 
-		/** Lägger till nya barrels i listan med ett visst tidsintervall
+		/** Lï¿½gger till nya barrels i listan med ett visst tidsintervall
 		 * 
 		 */
 		if (barrelTimer == 100) {
