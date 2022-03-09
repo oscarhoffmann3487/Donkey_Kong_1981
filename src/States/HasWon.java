@@ -1,17 +1,12 @@
 package States;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import java.util.Scanner;
-
 import Logic.Model;
+import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,11 +18,14 @@ public class HasWon extends GameState {
 	private int finalScore;
 	private Scanner scanner;
 	private int currentHighscore;
+	private Animation animation;
+	
 	public HasWon(Model model, int finalScore) {
 		super(model);
 		this.finalScore = finalScore;
 		bgColor = Color.BLACK;
 		fontColor1 = Color.DARKBLUE;
+		animation = new Animation(model);
 		
 	}
 
@@ -41,15 +39,12 @@ public class HasWon extends GameState {
 		drawBg(g, bgColor);
 		g.setFill(fontColor1);
 
+		g.drawImage(animation.getYouWin(), 30, 0, 400, 400);
 		g.setFill(Color.RED);
 		g.setFont(new Font(30)); // Big letters
-		g.fillText("YOU WON!", 60, 150);
-
-		g.setFill(Color.RED);
-		g.setFont(new Font(30)); // Big letters
-		g.fillText("YOUR SCORE:", 60, 200);
+		g.fillText("YOUR SCORE:", 100, 300);
 		g.setFill(Color.WHITE);
-		g.fillText(String.valueOf(finalScore), 300, 200);
+		g.fillText(String.valueOf(finalScore), 340, 300);
 	
 		g.setFill(fontColor1);
 		g.fillRoundRect(100, 400, 300, 80, 30, 30);

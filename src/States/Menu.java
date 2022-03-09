@@ -3,7 +3,6 @@ package States;
 import java.io.FileNotFoundException;
 
 import Level1.Level1;
-import Level2.Level2;
 import Logic.*;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,12 +20,10 @@ import static constants.Constants.SCREEN_WIDTH;
 public class Menu extends GameState {
 
 	private Level1 level1;
-
 	private Help help;
 	private HighScore highScore;
 	private Color bgColor;
 	private Color fontColor;
-	private AudioClip introSong;
 	private Animation animation;
 
 	public Menu(Model model) {
@@ -87,12 +84,6 @@ public class Menu extends GameState {
 
 		g.drawImage(animation.getMenuImage(), 50, 50, SCREEN_WIDTH - 100, SCREEN_HEIGHT - 400);
 
-	}
-
-	public AudioClip audio() {
-		introSong = new AudioClip("intro1.waw");
-		introSong.play();
-		return introSong;
 	}
 
 	@Override

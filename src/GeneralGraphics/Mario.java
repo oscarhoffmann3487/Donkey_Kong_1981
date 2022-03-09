@@ -1,7 +1,8 @@
-package Level1;
+package GeneralGraphics;
 
 import java.util.ArrayList;
 
+import Level1.Level1;
 import Level2.Level2;
 import Logic.Model;
 import States.GameOverMenu;
@@ -49,7 +50,7 @@ public class Mario {
 	}
 
 	/**
-	 * This methods allows Mario run around, climb ladders and jump. The ladder´s
+	 * This methods allows Mario run around, climb ladders and jump. The ladderï¿½s
 	 * placement differ in Level1 and Level2 and therefore we need to check whether
 	 * we are in Level1 or 2 and then use different methods.
 	 * 

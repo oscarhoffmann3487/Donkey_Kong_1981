@@ -2,6 +2,13 @@ package Level1;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import GeneralGraphics.Barrels;
+import GeneralGraphics.Cape;
+import GeneralGraphics.DonkeyKong;
+import GeneralGraphics.Mario;
+import GeneralGraphics.Pauline;
+import GeneralGraphics.PaulinesItem;
 import Level2.Level2;
 import Logic.*;
 import States.GameOverMenu;
@@ -280,7 +287,7 @@ public class Level1 extends GameState {
 			barrel.update();
 			
 			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
-				model.switchState(new GameOverMenu(model));
+			model.switchState(new GameOverMenu(model));
 			}
 		}
 

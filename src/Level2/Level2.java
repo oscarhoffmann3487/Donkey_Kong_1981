@@ -3,10 +3,10 @@ package Level2;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import Level1.Barrels;
-import Level1.DonkeyKong;
-import Level1.Mario;
-import Level1.Pauline;
+import GeneralGraphics.Barrels;
+import GeneralGraphics.DonkeyKong;
+import GeneralGraphics.Mario;
+import GeneralGraphics.Pauline;
 import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
@@ -24,7 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Same methods as in level1 but with different coordinates for placement. 
+ * Same methods as in level1 but with different coordinates for placement.
  *
  */
 public class Level2 extends GameState {
@@ -39,53 +39,53 @@ public class Level2 extends GameState {
 	private HasWon hasWon;
 	private DonkeyKong donkeyKong;
 	private Pauline pauline;
-	private Level1.PaulinesItem purse;
-	private Level1.PaulinesItem hat;
-	private Level1.PaulinesItem umbrella;
-	private Level1.Cape cape;
+	private GeneralGraphics.PaulinesItem purse;
+	private GeneralGraphics.PaulinesItem hat;
+	private GeneralGraphics.PaulinesItem umbrella;
+	private GeneralGraphics.Cape cape;
 	private Animation animation;
-	private Fire fire; 
-	
+	private Fire fire;
+
 	private int scoreScale = 40;
 	private int capeTimer = 400;
 	private int bonus = 500;
 	private int finalScore;
 	private int bonusTimer = 0;
 	private int scoreTimer = 0;
-	
+
 	private boolean takenPurse = false;
 	private boolean takenHat = false;
 	private boolean takenUmbrella = false;
-	
+
 	private ArrayList<Barrels> barrels;
-	private ArrayList<Level1.Cape> capes;
-	private ArrayList<Level1.PaulinesItem> paulinesItem;
-	private ArrayList<Level1.PaulinesItem> mariosItem;
+	private ArrayList<GeneralGraphics.Cape> capes;
+	private ArrayList<GeneralGraphics.PaulinesItem> paulinesItem;
+	private ArrayList<GeneralGraphics.PaulinesItem> mariosItem;
 
 	public Level2(Model model, int finalScore) {
 		super(model);
-	
+
 		System.out.println(finalScore);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
 		ladders = new Ladder2(model);
 		floors = new Floor2(model);
-		purse = new Level1.PaulinesItem(model);
-		hat = new Level1.PaulinesItem(model);
-		umbrella = new Level1.PaulinesItem(model);
+		purse = new GeneralGraphics.PaulinesItem(model);
+		hat = new GeneralGraphics.PaulinesItem(model);
+		umbrella = new GeneralGraphics.PaulinesItem(model);
 		donkeyKong = new DonkeyKong(model, 225, 115);
 		pauline = new Pauline(model, 260, 55);
-		cape = new Level1.Cape(model);
+		cape = new GeneralGraphics.Cape(model);
 		animation = new Animation(model);
 		hasWon = new HasWon(model, finalScore);
 		barrel = new Barrels(model, null, 200, 135, 190, 115);
-		fire = new Fire(model, floors.getFloorBoundaries(), 50);
+		fire = new Fire(model, floors.getFloorBoundaries(), 50, 400, 120);
 		barrels = new ArrayList<>();
 		paulinesItem = new ArrayList<>();
 		mariosItem = new ArrayList<>();
 		capes = new ArrayList<>();
 		this.finalScore = finalScore;
-		
+
 		paulinesItem.add(purse);
 		paulinesItem.add(umbrella);
 		paulinesItem.add(hat);
@@ -136,17 +136,17 @@ public class Level2 extends GameState {
 
 		// DonkeyKong
 		donkeyKong.drawDonkeyKong(g);
-		
+
 		// Pauline
 		pauline.drawPauline(g);
-		
-		//Fire
+
+		// Fire
 		fire.drawFire(g);
 	}
 
 	public void PaulinesItem(GraphicsContext g) {
 
-		for (Level1.PaulinesItem item : paulinesItem) {
+		for (GeneralGraphics.PaulinesItem item : paulinesItem) {
 			if (item == purse) {
 				purse.drawPurse(g);
 			} else if (item == hat) {
@@ -231,9 +231,8 @@ public class Level2 extends GameState {
 		} else {
 			mario.keyPressed(key);
 		}
-	
 	}
-	
+
 	@Override
 	public void update() {
 		barrelTimer += 1;
@@ -244,15 +243,15 @@ public class Level2 extends GameState {
 		hasWonLevel();
 		bonusSystem();
 		initiateCapteTimer();
-
-		if (mario.getMarioBox().intersects(fire.getFireBoundaries().get(0))){
-			model.switchState(new GameOverMenu(model));
-			System.out.println("hoppsan");
-		}
-		
-		
+		intersectWithFire();
 	}
 
+	public void intersectWithFire() {
+		if (mario.getMarioBox().intersects(fire.getFire0()) || mario.getMarioBox().intersects(fire.getFire1())
+				|| mario.getMarioBox().intersects(fire.getFire2())) {
+			model.switchState(new GameOverMenu(model));
+		}
+	}
 	public void initiateCapteTimer() {
 		if (mario.getMarioBox().intersects(cape.getCapeBox())) {
 			capeTimer = 0;
@@ -264,17 +263,15 @@ public class Level2 extends GameState {
 	public void hasWonLevel() {
 		if (mario.getMarioBox().intersects(pauline.getPaulineBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
-			model.switchState(new HasWon(model, finalScore));
-			if(hasWon.checkIfNewHighscore(finalScore)) {
-			hasWon.saveScore(finalScore);
+	
+			if (hasWon.checkIfNewHighscore(finalScore)) {
+				hasWon.saveScore(finalScore);
+				
+				model.switchState(new HasWon(model, finalScore));
 			}
-			
-			
-		
+
 		}
 	}
-	
-	
 
 	public void bonusSystem() {
 
@@ -292,41 +289,42 @@ public class Level2 extends GameState {
 
 			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
 				model.switchState(new GameOverMenu(model));
+			}
 		}
 
-		if (barrelTimer > 90 && barrelTimer < 110) {
-			donkeyKong.setMovement("pickUp");
-		} else if (barrelTimer > 160 && barrelTimer < 190) {
-			donkeyKong.setMovement("pickUp");
-		} else if (barrelTimer > 240 && barrelTimer < 270) {
-			donkeyKong.setMovement("pickUp");
-		} else if (barrelTimer > 290 && barrelTimer < 320) {
-			donkeyKong.setMovement("pickUp");
-		} else if (barrelTimer > 480 && barrelTimer < 510) {
-			donkeyKong.setMovement("pickUp");
-		} else {
-			donkeyKong.setMovement("stand");
-		}
+			if (barrelTimer > 90 && barrelTimer < 110) {
+				donkeyKong.setMovement("pickUp");
+			} else if (barrelTimer > 160 && barrelTimer < 190) {
+				donkeyKong.setMovement("pickUp");
+			} else if (barrelTimer > 240 && barrelTimer < 270) {
+				donkeyKong.setMovement("pickUp");
+			} else if (barrelTimer > 290 && barrelTimer < 320) {
+				donkeyKong.setMovement("pickUp");
+			} else if (barrelTimer > 480 && barrelTimer < 510) {
+				donkeyKong.setMovement("pickUp");
+			} else {
+				donkeyKong.setMovement("stand");
+			}
 
-		/**
-		 *  L�gger till nya barrels i listan med ett visst tidsintervall
-		 */
-		if (barrelTimer == 100) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+			/**
+			 * Lägger till nya barrels i listan med ett visst tidsintervall
+			 */
+			if (barrelTimer == 100) {
+				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-		} else if (barrelTimer == 170) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+			} else if (barrelTimer == 170) {
+				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-		} else if (barrelTimer == 250) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+			} else if (barrelTimer == 250) {
+				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-		} else if (barrelTimer == 300) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+			} else if (barrelTimer == 300) {
+				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-		} else if (barrelTimer == 490) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
-			barrelTimer = 0;
+			} else if (barrelTimer == 490) {
+				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+				barrelTimer = 0;
+			}
 		}
 	}
-}
-}
+

@@ -7,7 +7,7 @@ import Logic.Model;
 import javafx.scene.image.Image;
 
 /**
- * I denna klassen tas alla bilder som används i Level1 och Level2 in. 
+ * I denna klassen tas alla bilder som anvï¿½nds i Level1 och Level2 in. 
  *
  */
 public class Animation {
@@ -35,11 +35,14 @@ public class Animation {
 	private Image donkeyLeft;
 	private Image donkeyRight;
 	private Image fire; 
+	private Image youWin;
+
 
 	public Animation(Model model) {
 		try {
-			donkeyLeft = new Image(new FileInputStream("donkeyLeft.png"));
-			donkeyRight = new Image(new FileInputStream("donkeyRight.png"));
+			youWin = new Image(new FileInputStream("Images/youWin.png"));
+			donkeyLeft = new Image(new FileInputStream("Images/donkeyLeft.png"));
+			donkeyRight = new Image(new FileInputStream("Images/donkeyRight.png"));
 			bonus = new Image(new FileInputStream("Images/Bonus.png")); 
 			menuImage = new Image(new FileInputStream("Images/donkeyKong.png"));
 			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
@@ -50,9 +53,9 @@ public class Animation {
 			umbrella = new Image(new FileInputStream("Images/PaulinesIteams/Umbrella.png"));
 			pauline = new Image(new FileInputStream("Images/Pauline/Pauline.png"));
 			donkeyKongAndBarrel = new Image(new FileInputStream("Images/DonkeyKong/DonkeyKongAndBarrel.png"));
-			floor = new Image(new FileInputStream("floor.png"));
-			ladder = new Image(new FileInputStream("ladder1.png"));
-			barrel = new Image(new FileInputStream("barrel.png"));
+			floor = new Image(new FileInputStream("Images/floor.png"));
+			ladder = new Image(new FileInputStream("Images/ladder1.png"));
+			barrel = new Image(new FileInputStream("Images/barrel.png"));
 			barrelStack = new Image(new FileInputStream("Images/Barrels/Barrelstack.png"));
 			cape = new Image(new FileInputStream("Images/cape.png"));
 			donkeyKongPickUpLeft = new Image(new FileInputStream("Images/DonkeyKong/DonkeyKongPickUpLeft.png"));
@@ -62,6 +65,7 @@ public class Animation {
 			floor2 = new Image(new FileInputStream("Images/Level2/floor.png"));
 			ladder2 = new Image(new FileInputStream("Images/Level2/ladder.png"));
 			fire = new Image(new FileInputStream("Images/fire.png"));
+	
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
@@ -168,5 +172,11 @@ public class Animation {
 
 	public Image getFire() {
 		return fire;
+	}
+
+
+	public Image getYouWin() {
+		
+		return youWin;
 	}
 }

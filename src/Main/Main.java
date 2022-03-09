@@ -42,6 +42,7 @@ public class Main extends Application {
 		gameStage.setScene(gameScene);
 
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			
 			@Override
 			public void handle(KeyEvent event) {
 				model.keyPressed(event);

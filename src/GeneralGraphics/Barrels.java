@@ -1,4 +1,4 @@
-package Level1;
+package GeneralGraphics;
 
 import java.util.ArrayList;
 

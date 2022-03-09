@@ -18,13 +18,12 @@ public class HighScore extends GameState {
 	private Color fontColor1;
 	private Scanner scanner;
 	private String score;
-	private HashMap<String, Integer> highScoreMap;
+
 
 	public HighScore(Model model) {
 		super(model);
 		bgColor = Color.BLACK;
-		fontColor1 = Color.WHITE;
-		highScoreMap = new HashMap<>();
+		fontColor1 = Color.DARKBLUE;
 		
 		try {
 			
@@ -50,21 +49,35 @@ public class HighScore extends GameState {
 	public void draw(GraphicsContext g) throws FileNotFoundException {
 		drawBg(g, bgColor);
 		g.setFill(fontColor1);
-		g.setFont(new Font(20)); // Big letters
+		
+		
+		g.setFill(Color.RED);
+		g.setFont(new Font(50)); 
+		g.fillText("HIGHSCORE", 100, 150);
+		g.setFill(Color.WHITE);
+		g.setFont(new Font(30)); 
+		g.fillText(score, 100, 200);
 	
-		g.fillText(score, 350, 300);
+		g.setFill(fontColor1);
+		g.fillRoundRect(100, 400, 300, 80, 30, 30);
+		g.setFill(Color.WHITE);
+		g.setFont(new Font(25));
+		g.fillText("Main Menu", 190, 450);
+
 		
-		
-		
-		g.fillText("Press \"b\" to go back to main menu.", 20, 560);
+		g.getCanvas().setOnMouseClicked(event -> {
+			if (event.getX() <= 400 && event.getX() >= 100 && event.getY() >= 400 && event.getY() <= 480) {
+				model.switchState(new Menu(model));
+			}
+		});
+
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent key) {
 		
-		if (key.getCode() == KeyCode.B) {
-			model.switchState(new Menu(model));
-	}
+	
 	
 	}
 	
