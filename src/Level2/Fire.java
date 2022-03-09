@@ -1,7 +1,6 @@
 package Level2;
 
 import java.util.ArrayList;
-
 import Logic.Model;
 import constants.Animation;
 import javafx.geometry.Rectangle2D;
@@ -10,9 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Fire-class creates fire-elements in level2. If mario intersects one of these
  * he dies.
- * 
- * @author Julia
- *
  */
 
 public class Fire {

@@ -9,10 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 /**
- * An abstract class with a protected model. Every class whom extends from GameState
- * also need to extend all of the abstract methods. 
- * 
- *
+ * An abstract class with a protected model. Every class whom extends from
+ * GameState also need to extend all of the abstract methods.
  */
 
 public abstract class GameState {

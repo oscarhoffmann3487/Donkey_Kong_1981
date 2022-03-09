@@ -8,8 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Pauline is used in both level1 and level2. Her coordinates remain the same
  * during the game but differ from level1 and level2.
- *
- *
  */
 public class Pauline {
 	private double x;

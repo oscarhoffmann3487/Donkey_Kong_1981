@@ -7,7 +7,6 @@ import Level2.Level2;
 import Logic.Model;
 import States.GameOverMenu;
 import constants.Animation;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -123,8 +122,8 @@ public class Mario {
 	}
 
 	/**
-	 * drawMario() will change the animation of Mario depending on witch direction he
-	 * is in. The direction depends on which key is pressed in KeyPressed().
+	 * drawMario() will change the animation of Mario depending on witch direction
+	 * he is in. The direction depends on which key is pressed in KeyPressed().
 	 * 
 	 * @param g
 	 */
@@ -165,9 +164,9 @@ public class Mario {
 		}
 
 	}
-	
+
 	/**
-	 * If mario intersects DonkeyKong the game is over. 
+	 * If mario intersects DonkeyKong the game is over.
 	 */
 
 	public void marioDonkeyKongCollision() {
@@ -219,7 +218,7 @@ public class Mario {
 
 	/**
 	 * This is used in KeyPressed and decides whether Mario can move in a certain
-	 * direction or not depending on which floor and ladder he stands upon. 
+	 * direction or not depending on which floor and ladder he stands upon.
 	 * 
 	 * @return
 	 */
@@ -278,7 +277,8 @@ public class Mario {
 	}
 
 	/**
-	 * This method is use in KeyPressed and controls Marios Y-coordinate. 
+	 * This method is use in KeyPressed and controls Marios Y-coordinate.
+	 * 
 	 * @return
 	 */
 	public boolean marioYCoordinate() {
@@ -309,7 +309,7 @@ public class Mario {
 	}
 
 	/**
-	 * Tells Mario that he cannot move outside the screen. 
+	 * Tells Mario that he cannot move outside the screen.
 	 */
 	public void checkPosition() {
 		if (x >= SCREEN_WIDTH - scale) {

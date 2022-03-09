@@ -41,7 +41,7 @@ public class GameOverMenu extends GameState {
 		g.drawImage(animation.getDonkeyRight(), 260, 198, 80, 80);
 
 		g.setFill(Color.DARKRED);
-		g.setFont(new Font(70)); // Big letters
+		g.setFont(new Font(70));
 		g.fillText("GAME OVER", 60, 150);
 
 		g.setFill(fontColor1);

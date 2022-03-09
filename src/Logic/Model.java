@@ -1,7 +1,6 @@
 package Logic;
 
 import java.io.FileNotFoundException;
-
 import States.GameState;
 import States.Menu;
 import javafx.scene.canvas.GraphicsContext;

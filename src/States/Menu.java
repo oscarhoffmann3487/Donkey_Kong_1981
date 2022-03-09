@@ -7,15 +7,14 @@ import Logic.*;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 
 /**
- * The first class to be shown. Here the player can choose New Game, Help, Highscores or Exit. 
- * 
+ * The first class to be shown. Here the player can choose New Game, Help,
+ * Highscores or Exit.
  */
 public class Menu extends GameState {
 
@@ -37,9 +36,11 @@ public class Menu extends GameState {
 	}
 
 	/**
-	 * Within the draw-method we created different "buttons". Each button has a specific size
-	 * and if the player click within the different buttons currentState will be switched. 
+	 * Within the draw-method we created different "buttons". Each button has a
+	 * specific size and if the player click within the different buttons
+	 * currentState will be switched.
 	 */
+
 	@Override
 	public void draw(GraphicsContext g) throws FileNotFoundException {
 		drawBg(g, bgColor);
@@ -93,5 +94,4 @@ public class Menu extends GameState {
 	@Override
 	public void update() {
 	}
-
 }

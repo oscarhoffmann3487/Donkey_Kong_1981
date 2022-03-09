@@ -11,10 +11,8 @@ import Logic.*;
 import States.GameOverMenu;
 import States.GameState;
 import States.HasWon;
-import States.HighScore;
 import States.Menu;
 import constants.Animation;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 
 import javafx.scene.input.KeyCode;
@@ -65,7 +63,6 @@ public class Level2 extends GameState {
 	public Level2(Model model, int finalScore) {
 		super(model);
 
-		System.out.println(finalScore);
 		bgColor = Color.BLACK;
 		fontColor = Color.BLUE;
 		ladders = new Ladder2(model);
@@ -252,6 +249,7 @@ public class Level2 extends GameState {
 			model.switchState(new GameOverMenu(model));
 		}
 	}
+
 	public void initiateCapteTimer() {
 		if (mario.getMarioBox().intersects(cape.getCapeBox())) {
 			capeTimer = 0;
@@ -263,11 +261,11 @@ public class Level2 extends GameState {
 	public void hasWonLevel() {
 		if (mario.getMarioBox().intersects(pauline.getPaulineBox()) && mariosItem.contains(purse)
 				&& mariosItem.contains(umbrella) && mariosItem.contains(hat)) {
-	
+			model.switchState(new HasWon(model, finalScore));
 			if (hasWon.checkIfNewHighscore(finalScore)) {
 				hasWon.saveScore(finalScore);
-				
-				model.switchState(new HasWon(model, finalScore));
+
+			
 			}
 
 		}
@@ -292,39 +290,38 @@ public class Level2 extends GameState {
 			}
 		}
 
-			if (barrelTimer > 90 && barrelTimer < 110) {
-				donkeyKong.setMovement("pickUp");
-			} else if (barrelTimer > 160 && barrelTimer < 190) {
-				donkeyKong.setMovement("pickUp");
-			} else if (barrelTimer > 240 && barrelTimer < 270) {
-				donkeyKong.setMovement("pickUp");
-			} else if (barrelTimer > 290 && barrelTimer < 320) {
-				donkeyKong.setMovement("pickUp");
-			} else if (barrelTimer > 480 && barrelTimer < 510) {
-				donkeyKong.setMovement("pickUp");
-			} else {
-				donkeyKong.setMovement("stand");
-			}
+		if (barrelTimer > 90 && barrelTimer < 110) {
+			donkeyKong.setMovement("pickUp");
+		} else if (barrelTimer > 160 && barrelTimer < 190) {
+			donkeyKong.setMovement("pickUp");
+		} else if (barrelTimer > 240 && barrelTimer < 270) {
+			donkeyKong.setMovement("pickUp");
+		} else if (barrelTimer > 290 && barrelTimer < 320) {
+			donkeyKong.setMovement("pickUp");
+		} else if (barrelTimer > 480 && barrelTimer < 510) {
+			donkeyKong.setMovement("pickUp");
+		} else {
+			donkeyKong.setMovement("stand");
+		}
 
-			/**
-			 * Lägger till nya barrels i listan med ett visst tidsintervall
-			 */
-			if (barrelTimer == 100) {
-				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+		/**
+		 * Lägger till nya barrels i listan med ett visst tidsintervall
+		 */
+		if (barrelTimer == 100) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-			} else if (barrelTimer == 170) {
-				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+		} else if (barrelTimer == 170) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-			} else if (barrelTimer == 250) {
-				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+		} else if (barrelTimer == 250) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-			} else if (barrelTimer == 300) {
-				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+		} else if (barrelTimer == 300) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
 
-			} else if (barrelTimer == 490) {
-				barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
-				barrelTimer = 0;
-			}
+		} else if (barrelTimer == 490) {
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 200, 135, 190, 110));
+			barrelTimer = 0;
 		}
 	}
-
+}

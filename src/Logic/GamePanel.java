@@ -6,8 +6,6 @@ import javafx.scene.canvas.Canvas;
 /**
  * GamePanel extends Canvas which let us send getGraphicsContext2D() to the
  * draw-method in model.
- * 
- *
  */
 
 public class GamePanel extends Canvas {

@@ -2,9 +2,7 @@ package Main;
 
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
-
 import java.io.FileNotFoundException;
-
 import Logic.GameFrame;
 import Logic.Model;
 import javafx.animation.AnimationTimer;
@@ -12,15 +10,13 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-
 import javafx.stage.Stage;
 
 /**
  * Here we create the Model, GameFram and Scene with specific sizes. This class
  * starts the method handle which will send model.update() and frame.repaint()
- * 
- *
  */
+
 public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
@@ -42,7 +38,7 @@ public class Main extends Application {
 		gameStage.setScene(gameScene);
 
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			
+
 			@Override
 			public void handle(KeyEvent event) {
 				model.keyPressed(event);

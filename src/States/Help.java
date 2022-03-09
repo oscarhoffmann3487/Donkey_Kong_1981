@@ -2,9 +2,7 @@ package States;
 
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
-
 import java.io.FileNotFoundException;
-
 import Logic.Model;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,9 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Extends gamestate. Explain the rule of the game. 
- * 
- *
+ * Extends gamestate. Explain the rule of the game.
  */
 public class Help extends GameState {
 

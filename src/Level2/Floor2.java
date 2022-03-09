@@ -1,18 +1,14 @@
 package Level2;
 
 import java.util.ArrayList;
-
 import Logic.Model;
 import constants.Animation;
-
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Creates floors in the same way as in the Floor-class. The difference is that
  * level2 has a different animation and the floors are not placed the same.
- * 
- *
  */
 public class Floor2 {
 

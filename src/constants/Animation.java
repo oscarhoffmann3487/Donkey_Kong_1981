@@ -2,12 +2,11 @@ package constants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
 import Logic.Model;
 import javafx.scene.image.Image;
 
 /**
- * All the images is stores in this class. 
+ * All the images is stored in this class.
  *
  */
 public class Animation {
@@ -28,22 +27,21 @@ public class Animation {
 	private Image donkeyKongPickUpLeft;
 	private Image barrelStack;
 	private Image hat;
-	private Image umbrella; 
+	private Image umbrella;
 	private Image bonus;
 	private Image floor2;
 	private Image ladder2;
 	private Image donkeyLeft;
 	private Image donkeyRight;
-	private Image fire; 
+	private Image fire;
 	private Image youWin;
-
 
 	public Animation(Model model) {
 		try {
 			youWin = new Image(new FileInputStream("Images/youWin.png"));
 			donkeyLeft = new Image(new FileInputStream("Images/donkeyLeft.png"));
 			donkeyRight = new Image(new FileInputStream("Images/donkeyRight.png"));
-			bonus = new Image(new FileInputStream("Images/Bonus.png")); 
+			bonus = new Image(new FileInputStream("Images/Bonus.png"));
 			menuImage = new Image(new FileInputStream("Images/donkeyKong.png"));
 			marioStandRight = new Image(new FileInputStream("Images/Mario/right/MarioRun1Right.png"));
 			marioStandLeft = new Image(new FileInputStream("Images/Mario/left/MarioRun1Left.png"));
@@ -65,33 +63,28 @@ public class Animation {
 			floor2 = new Image(new FileInputStream("Images/Level2/floor.png"));
 			ladder2 = new Image(new FileInputStream("Images/Level2/ladder.png"));
 			fire = new Image(new FileInputStream("Images/fire.png"));
-	
+
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to find image-files!");
 		}
 
 	}
 
-	
 	public Image getDonkeyRight() {
 		return donkeyRight;
 	}
-
 
 	public Image getDonkeyLeft() {
 		return donkeyLeft;
 	}
 
-
 	public Image getBonus() {
 		return bonus;
 	}
 
-
 	public Image getMenuImage() {
 		return menuImage;
 	}
-
 
 	public Image getPurse() {
 		return purse;
@@ -169,14 +162,12 @@ public class Animation {
 		return ladder2;
 	}
 
-
 	public Image getFire() {
 		return fire;
 	}
 
-
 	public Image getYouWin() {
-		
+
 		return youWin;
 	}
 }

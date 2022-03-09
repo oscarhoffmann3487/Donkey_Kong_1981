@@ -285,9 +285,9 @@ public class Level1 extends GameState {
 	public void createBarrels() {
 		for (Barrels barrel : barrels) {
 			barrel.update();
-			
+
 			if (capeTimer > 400 && barrel.getBarrelBox().intersects(mario.getMarioBox())) {
-			model.switchState(new GameOverMenu(model));
+				model.switchState(new GameOverMenu(model));
 			}
 		}
 
@@ -305,8 +305,6 @@ public class Level1 extends GameState {
 			donkeyKong.setMovement("stand");
 		}
 
-
-
 		/**
 		 * Lägger till nya barrels i listan med ett visst tidsintervall
 		 * 
@@ -315,7 +313,7 @@ public class Level1 extends GameState {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 
 		} else if (barrelTimer == 170) {
-			barrels.add(new Barrels(model, floors.getFloorBoundaries(),35, 135, 0, 115));
+			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
 
 		} else if (barrelTimer == 250) {
 			barrels.add(new Barrels(model, floors.getFloorBoundaries(), 35, 135, 0, 115));
