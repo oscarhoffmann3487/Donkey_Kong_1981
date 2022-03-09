@@ -7,7 +7,7 @@ import Logic.Model;
 import javafx.scene.image.Image;
 
 /**
- * I denna klassen tas alla bilder som anv�nds i Level1 och Level2 in. 
+ * All the images is stores in this class. 
  *
  */
 public class Animation {

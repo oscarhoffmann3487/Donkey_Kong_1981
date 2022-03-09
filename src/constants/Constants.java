@@ -1,7 +1,7 @@
 package constants;
 
 /**
- * Globala konstanter som definerar hur stor fönsret kommer att vara.
+ * Global constants deciding the size of the screen.
  */
 public interface Constants {
 	int SCREEN_WIDTH = 500;

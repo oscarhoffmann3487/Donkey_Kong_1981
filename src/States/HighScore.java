@@ -2,16 +2,20 @@ package States;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import Logic.Model;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
+/**
+ * Highschore-class presents the highest score in the game. 
+ * This will be updated if a player receives a better score than
+ * current highscore. 
+ * @author Julia
+ *
+ */
 public class HighScore extends GameState {
 	
 	private Color bgColor; 

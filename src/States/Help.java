@@ -3,21 +3,18 @@ package States;
 import static constants.Constants.SCREEN_HEIGHT;
 import static constants.Constants.SCREEN_WIDTH;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import Logic.Model;
 import constants.Animation;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Ärver från GameState. Beskriver vilka kommandon och regler som man behöver
- * veta för att kunna spela spelet.
+ * Extends gamestate. Explain the rule of the game. 
  * 
  *
  */

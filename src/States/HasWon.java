@@ -11,6 +11,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * The state to be shown if the player win the game. It has a method 
+ * to decide if the player's score is a new  highscore.
+ *
+ */
 public class HasWon extends GameState {
 
 	private Color bgColor;
